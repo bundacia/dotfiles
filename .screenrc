@@ -1,0 +1,8 @@
+#caption splitonly '%{= Kk}%3n %t'
+hardstatus alwayslastline '%{= Kk}%-w[%{= KG}%50>%n %t%{= Kk}]%+w%='
+
+# Turn off annoying visual bell ("Wuff Wuff")
+vbell off
+
+# Lots and lots of scrollback
+defscrollback 5000

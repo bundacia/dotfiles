@@ -1,0 +1,11 @@
+[user]
+	name = Trevor Little
+	email = trevor@benefacting.org
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[alias]
+        l  = log --pretty=format:'%Cred%h%Creset %Cblue%aN%Creset: %s' --date-order --graph
+        ld = log --pretty=format:'%Cred%h%Creset %Cblue%aN%Creset [%cd]: %s' --date-order --graph --date=relative
+	st = status --short
