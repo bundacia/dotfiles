@@ -25,6 +25,11 @@
 "       Snippet expansion like in TextMate
 "           info -> :help snipMate
 "
+"       Installed snippets from https://github.com/scrooloose/snipmate-snippets:
+"         git clone git://github.com/scrooloose/snipmate-snippets.git
+"         cd snipmate-snippets
+"         rake deplo_local
+"
 "     > netrw.vim - http://www.vim.org/scripts/script.php?script_id=1075
 "       Open/Read/Write files over a network
 "           info -> :help netrw
