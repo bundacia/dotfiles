@@ -20,11 +20,23 @@
 "                   OR https://github.com/bundacia/ScreenPipe 
 "       Send selected text to another screen.
 "
-" Plugins To Try:
-"     > snipMate.vim - http://www.vim.org/scripts/script.php?script_id=2540
-"       Snippets for many languages (similar to TextMate's):
+"     > snipmate.vim - http://www.vim.org/scripts/script.php?script_id=2540
+"                   OR git://github.com/msanders/snipmate.vim.git
+"       Snippet expansion like in TextMate
 "           info -> :help snipMate
 "
+"     > netrw.vim - http://www.vim.org/scripts/script.php?script_id=1075
+"       Open/Read/Write files over a network
+"           info -> :help netrw
+"
+" After Installing Plugind:
+"     try the folowwing to load the help pages:
+"         :helptags ~/.vim/doc
+"
+"
+
+" Set the leader
+let mapleader = ","
 
 """"""""""""""""""""""
 " => Persistent undo 
@@ -35,6 +47,11 @@ try
     set undofile
 catch
 endtry
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => snipmate
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:snips_author = 'Trevor Little'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERD_tree
@@ -91,21 +108,22 @@ set backspace=indent,eol,start  " allow backspacing over eevrything in insert mo
 """"""""""""""""""""""
 " => Coloring
 """"""""""""""""""""""
-color desert " use desert scheme
+colorscheme vividchalk
+"colorscheme desert
 
 " but make comments grey
 hi Comment	ctermfg=241
 
 " and tweak pod highlighting
-"hi link podCommand      Comment
-"hi link podCmdText      Character
-"hi link podOverIndent   Number
-"hi link podForKeywd     Tag
-"hi link podFormat       Tag
-"hi link podVerbatimLine Structure
-"hi link podSpecial      Tag
-"hi link podEscape       String
-"hi link podEscape2      Number
+hi link podCommand      Comment
+hi link podCmdText      Character
+hi link podOverIndent   Number
+hi link podForKeywd     Tag
+hi link podFormat       Tag
+hi link podVerbatimLine Structure
+hi link podSpecial      Tag
+hi link podEscape       String
+hi link podEscape2      Number
 
 """"""""""""""""""""""
 " Align
@@ -139,6 +157,7 @@ map ,A :call AlignHash()<CR>
 """"""""""""""""""""""
 " 2-space tabs for ruby files
 autocmd FileType ruby,eruby,yaml,haml,scss set shiftwidth=2 softtabstop=2 expandtab
+"autocmd FileType ruby,eruby,yaml,haml,scss colorscheme vividchalk
 
 """"""""""""""""""""""
 " => Perl editing
