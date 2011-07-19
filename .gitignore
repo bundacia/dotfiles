@@ -1,0 +1,10 @@
+# First ignore everything...
+*
+
+# Then make esceptions for the stuff we really to want to track.
+!.vim/*
+!.bashrc
+!.gitconfig
+!.vimrc
+!.screenrc*
+!.gitignore
