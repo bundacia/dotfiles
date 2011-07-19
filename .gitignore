@@ -2,6 +2,7 @@
 *
 
 # Then make esceptions for the stuff we really to want to track.
+!.vim
 !.vim/*
 !.bashrc
 !.gitconfig
