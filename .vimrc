@@ -57,6 +57,7 @@ endtry
 " => snipmate
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:snips_author = 'Trevor Little'
+source ~/.vim/snippets/support_functions.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERD_tree
