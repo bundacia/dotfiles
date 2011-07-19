@@ -3,7 +3,14 @@
 
 # Then make esceptions for the stuff we really to want to track.
 !.vim
+# no way to ignore everything recursively so far as I can tell =(
 !.vim/*
+!.vim/*/*
+!.vim/*/*/*
+!.vim/*/*/*/*
+!.vim/*/*/*/*/*
+!.vim/*/*/*/*/*/*
+!.vim/*/*/*/*/*/*/*
 !.bashrc
 !.gitconfig
 !.vimrc
