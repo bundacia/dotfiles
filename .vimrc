@@ -117,8 +117,9 @@ set backspace=indent,eol,start  " allow backspacing over eevrything in insert mo
 colorscheme vividchalk
 "colorscheme desert
 
-" but make comments grey
+" but make comments and search greys
 hi Comment	ctermfg=241
+hi Search	ctermbg=244
 
 " and tweak pod highlighting
 hi link podCommand      Comment
