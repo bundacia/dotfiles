@@ -16,11 +16,7 @@ export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$PATH
 
 export PATH=$HOME/bin:$PATH
 
-export MT_CODEBASE=$HOME/mt.dev/public/MoneyTracker
-
-export GOROOT=$HOME/go
-export GOARCH=amd64
-export GOOS=darwin
+export EDITOR=/usr/bin/vim
 
 # Source in rvm methods
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
