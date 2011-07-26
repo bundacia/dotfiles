@@ -95,6 +95,11 @@ vmap <S-tab> <gv
 nmap <tab> >><esc>
 nmap <s-tab> <<
 
+" don't require a save before switching buffers
+set hidden
+" press f5 to list and select buffers
+nnoremap <F5> :buffers<CR>:buffer<Space>
+
 " ---- Windows ---- "
 "set noea "Don't equalize each window when a new one is opened or closed"
 
