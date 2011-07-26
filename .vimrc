@@ -121,17 +121,6 @@ colorscheme vividchalk
 hi Comment	ctermfg=241
 hi Search	ctermbg=244
 
-" and tweak pod highlighting
-hi link podCommand      Comment
-hi link podCmdText      Character
-hi link podOverIndent   Number
-hi link podForKeywd     Tag
-hi link podFormat       Tag
-hi link podVerbatimLine Structure
-hi link podSpecial      Tag
-hi link podEscape       String
-hi link podEscape2      Number
-
 """"""""""""""""""""""
 " Align
 """"""""""""""""""""""
@@ -169,6 +158,19 @@ autocmd FileType ruby,eruby,yaml,haml,scss set shiftwidth=2 softtabstop=2 expand
 """"""""""""""""""""""
 " => Perl editing
 """"""""""""""""""""""
+"use desert for perl
+autocmd FileType perl colorscheme desert
+" and tweak pod highlighting
+autocmd FileType perl hi link podCommand      Comment
+autocmd FileType perl hi link podCmdText      Character
+autocmd FileType perl hi link podOverIndent   Number
+autocmd FileType perl hi link podForKeywd     Tag
+autocmd FileType perl hi link podFormat       Tag
+autocmd FileType perl hi link podVerbatimLine Structure
+autocmd FileType perl hi link podSpecial      Tag
+autocmd FileType perl hi link podEscape       String
+autocmd FileType perl hi link podEscape2      Number
+
 nmap <C-D>  iuse Data::Dumper 'Dumper'; warn Dumper [];#DEBUG#8hi
 "nmap <C-B>  iBugzID: 
 
