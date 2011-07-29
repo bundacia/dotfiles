@@ -1,5 +1,5 @@
 #caption splitonly '%{= Kk}%3n %t'
-hardstatus alwayslastline '%{= Kk}%-w[%{= KG}%50>%n %t%{= Kk}]%+w%='
+hardstatus alwayslastline '%{= kk}%-w[%{= kr}%50>%n %t%{= kk}]%+w%='
 
 # Turn off annoying visual bell ("Wuff Wuff")
 vbell off
@@ -27,3 +27,5 @@ at 6 stuff "cd ~/Benefacting; autotest \015"
 
 # Give window 0 focus
 select 0
+
+# vim: set ft=screen:

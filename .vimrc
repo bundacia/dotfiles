@@ -34,13 +34,23 @@
 "       Open/Read/Write files over a network
 "           info -> :help netrw
 "
+"     > pathogen.vim - http://www.vim.org/scripts/script.php?script_id=2332
+"         allow installing of plugins in .vim/bundles
+"
 " After Installing Plugind:
 "     try the folowwing to load the help pages:
 "         :helptags ~/.vim/doc
 "
 "
 
-" Set the leader
+""""""""""""""""""""""""""
+" => Add pathogen bundles
+""""""""""""""""""""""""""
+call pathogen#runtime_append_all_bundles() 
+
+""""""""""""""""""""""
+" => Set the leader
+""""""""""""""""""""""
 let mapleader = ","
 
 """"""""""""""""""""""
@@ -119,12 +129,13 @@ set backspace=indent,eol,start  " allow backspacing over eevrything in insert mo
 """"""""""""""""""""""
 " => Coloring
 """"""""""""""""""""""
-colorscheme vividchalk
-"colorscheme desert
+" using solorized from http://ethanschoonover.com/solarized
+set background=dark
+colorscheme solarized
 
 " but make comments and search greys
-hi Comment	ctermfg=241
-hi Search	ctermbg=244
+"hi Comment	ctermfg=241
+"hi Search	ctermbg=244
 
 """"""""""""""""""""""
 " Align
