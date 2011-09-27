@@ -9,3 +9,5 @@
         l  = log --pretty=format:'%Cred%h%Creset %Cblue%aN%Creset: %s' --date-order --graph
         ld = log --pretty=format:'%Cred%h%Creset %Cblue%aN%Creset [%cd]: %s' --date-order --graph --date=relative
 	st = status --short
+        ci = commit -va
+        di = diff

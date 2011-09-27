@@ -42,7 +42,6 @@
 "         :helptags ~/.vim/doc
 "
 "
-
 """"""""""""""""""""""""""
 " => Add pathogen bundles
 """"""""""""""""""""""""""
@@ -169,6 +168,7 @@ map ,A :call AlignHash()<CR>
 """"""""""""""""""""""
 " 2-space tabs for ruby files
 autocmd FileType ruby,eruby,yaml,haml,scss set shiftwidth=2 softtabstop=2 expandtab
+map T :w<CR>:!bundle exec rspec %:<C-R>=line('.')<CR><CR>
 "autocmd FileType ruby,eruby,yaml,haml,scss colorscheme vividchalk
 
 """"""""""""""""""""""

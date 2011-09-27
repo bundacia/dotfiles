@@ -10,18 +10,18 @@ defscrollback 5000
 # Open up my default windows
 screen -t vi       0
 screen -t server   1
-screen -t mongod   2
+screen -t mongods  2
 screen -t mongo    3
 screen -t console  4 
 screen -t spork    5 
 screen -t autotest 6 
 
 # # Run Commands in certain windows
-at 0 stuff "cd ~/Benefacting; clear; \015"
-at 2 stuff "cd ~/Benefacting; ~/mongodb-osx-x86_64-1.8.0/bin/mongod --journal\015"
-at 1 stuff "cd ~/Benefacting; rails s; \015" # out of order so mongod starts first
-at 3 stuff "cd ~/Benefacting; sleep 1; ~/mongodb-osx-x86_64-1.8.0/bin/mongo  \015"
-at 4 stuff "cd ~/Benefacting; rails c \015"
+at 0 stuff "cd ~/Benefacting; clear \015"
+at 2 stuff "cd ~/Benefacting; start_mongo_rs.sh \015"
+at 1 stuff "cd ~/Benefacting; sleep 2; rails s \015" # out of order so mongod starts first
+at 3 stuff "cd ~/Benefacting; sleep 2; ~/mongodb-osx-x86_64-2.0.0/bin/mongo  \015"
+at 4 stuff "cd ~/Benefacting; sleep 2; rails c \015"
 at 5 stuff "cd ~/Benefacting; spork \015"
 at 6 stuff "cd ~/Benefacting; autotest \015"
 
