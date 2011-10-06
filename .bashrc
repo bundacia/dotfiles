@@ -1,13 +1,3 @@
-function parse_git_branch {
-  BRANCH=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/')
-  if [ "$BRANCH" != "" ]; then
-      echo " $BRANCH";
-  else
-      echo '';
-  fi
-   
-}
-
 #export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w$(parse_git_branch) \$\[\033[00m\] '
 #export PS1='\[\033[0;33m\]\!:\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
 export PS1='\[\033[0;33m\]\!:\[\033[1;35m\]\u@\h\[\033[0;34m\] \w \$\[\033[00m\] '

@@ -12,6 +12,8 @@
 !.vim/*/*/*/*/*/*
 !.vim/*/*/*/*/*/*/*
 !.bashrc
+!.zshrc
+!.zshenv
 !.gitconfig
 !.vimrc
 !.screenrc*
