@@ -75,7 +75,6 @@ bindkey -e # Use emacs mode
 
 setopt append_history hist_ignore_dups hist_ignore_space hist_no_store hist_verify
 setopt correct # correct misspelled commands
-setopt nullglob # maybe fix rvm?
 
 # tab completion for PID :D
 zstyle ':completion:*:*:kill:*' menu yes select
