@@ -80,6 +80,9 @@ setopt correct # correct misspelled commands
 zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*' force-list always
 
+# Make the delete key work 
+bindkey '^[[3~' delete-char
+
 # look in /usr/local first (macports, anything manually compiled)
 PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$PATH
 
