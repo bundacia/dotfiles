@@ -109,6 +109,11 @@ set hidden
 " press f5 to list and select buffers
 nnoremap <F5> :buffers<CR>:buffer<Space>
 
+" highlight row and col or cursor
+au WinLeave * set nocursorline
+au WinEnter * set cursorline
+set cursorline
+
 " ---- Windows ---- "
 "set noea "Don't equalize each window when a new one is opened or closed"
 
@@ -175,7 +180,7 @@ map T :w<CR>:!bundle exec rspec %:<C-R>=line('.')<CR><CR>
 " => Perl editing
 """"""""""""""""""""""
 "use desert for perl
-autocmd FileType perl colorscheme desert
+"autocmd FileType perl colorscheme desert
 " and tweak pod highlighting
 autocmd FileType perl hi link podCommand      Comment
 autocmd FileType perl hi link podCmdText      Character
