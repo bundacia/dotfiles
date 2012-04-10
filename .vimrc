@@ -110,9 +110,9 @@ set hidden
 nnoremap <F5> :buffers<CR>:buffer<Space>
 
 " highlight row and col or cursor
-au WinLeave * set nocursorline
-au WinEnter * set cursorline
-set cursorline
+"au WinLeave * set nocursorline
+"au WinEnter * set cursorline
+"set cursorline
 
 " ---- Windows ---- "
 "set noea "Don't equalize each window when a new one is opened or closed"

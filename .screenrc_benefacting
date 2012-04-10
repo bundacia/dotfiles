@@ -17,13 +17,13 @@ screen -t spork    5
 screen -t autotest 6 
 
 # # Run Commands in certain windows
-at 0 stuff "cd ~/Benefacting; clear \015"
 at 2 stuff "cd ~/Benefacting; start_mongo_rs.sh \015"
-at 1 stuff "cd ~/Benefacting; sleep 2; rails s \015" # out of order so mongod starts first
-at 3 stuff "cd ~/Benefacting; sleep 2; ~/mongodb-osx-x86_64-2.0.0/bin/mongo  \015"
+at 1 stuff "cd ~/Benefacting; sleep 2; rails s \015"
 at 4 stuff "cd ~/Benefacting; sleep 2; rails c \015"
-at 5 stuff "cd ~/Benefacting; spork \015"
+at 5 stuff "cd ~/Benefacting; bundle exec spork \015"
 at 6 stuff "cd ~/Benefacting; autotest \015"
+at 3 stuff "cd ~/Benefacting; sleep 3; ~/mongodb-osx-x86_64-2.0.2/bin/mongo  \015"
+at 0 stuff "cd ~/Benefacting; clear \015"
 
 # Give window 0 focus
 select 0

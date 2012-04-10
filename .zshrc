@@ -84,7 +84,7 @@ zstyle ':completion:*:kill:*' force-list always
 bindkey '^[[3~' delete-char
 
 # look in /usr/local first (macports, anything manually compiled)
-PATH=/opt/local/bin:/opt/local/sbin:/usr/local/mysql/bin:$PATH
+PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/mysql/bin:$PATH
 
 # add bin from homedir
 PATH=$HOME/bin:$PATH
