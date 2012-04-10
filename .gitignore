@@ -2,6 +2,8 @@
 *
 
 # Then make esceptions for the stuff we really to want to track.
+!bin
+!bin/*
 !.vim
 # no way to include everything recursively so far as I can tell =(
 !.vim/*
@@ -22,3 +24,6 @@
 
 # But DO ignore the netrwhist since it will keep changing
 .vim/.netrwhist
+
+# and DO ignore the Mac-generated .DS_Store file in the bin directory
+bin/.DS_Store

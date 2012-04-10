@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Decrypt the file
+gpg -o .passwd.cleartext --decrypt .passwd.gpg && rm -f .passwd.gpg
+
+# Open cleartext for editing
+vi .passwd.cleartext
+
+# Encrypt file
+gpg --force-mdc -o .passwd.gpg --symmetric .passwd.cleartext && rm -f .passwd.cleartext
+

@@ -1,0 +1,6 @@
+#!/bin/bash
+while read i
+  do for w in $(echo $i | aspell list)
+    do echo $w | aspell pipe | grep '^&'
+  done
+done

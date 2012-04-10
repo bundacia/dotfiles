@@ -1,0 +1,4 @@
+#!/usr/bin/perl
+
+{ local $/; $clip = <>; }
+system qw/dcop klipper klipper setClipboardContents/, $clip; 

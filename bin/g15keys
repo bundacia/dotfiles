@@ -1,0 +1,38 @@
+#!/bin/bash
+
+XVKBD_SCRIPT='`xvkbd -text "$_"` for split q{}, do { local $/ = <> };'
+
+case "$1" in
+1)
+sleep 0.1; 
+echo -n "tlittle@webassign.net"| perl -e "$XVKBD_SCRIPT"
+;;
+2)
+sleep 0.1; 
+echo -n "TrevorMG19@gmail.com"| perl -e "$XVKBD_SCRIPT"
+;;
+3)
+ssh daisy -C 'apachectl stop && sleep 2 && apachectl start'
+;;
+4)
+perl -e 'select(undef,undef,undef,.1)' #sleep less than a second
+echo -n "-1/3	cosx^3"| perl -e "$XVKBD_SCRIPT"
+;;
+5)
+sleep 0.1; 
+echo -n "svn+ssh://tlittle@svn/home/svnroot/webassign/branches/rc-200910"| perl -e "$XVKBD_SCRIPT"
+;;
+6)
+sleep 0.1; 
+cat <<EOF | perl -e "$XVKBD_SCRIPT"
+username,full name,password
+tjlstudent1,tjlstudent1,tjlstudent1
+tjlstudent2,tjlstudent2,tjlstudent2
+tjlstudent3,tjlstudent3,tjlstudent3
+tjlstudent4,tjlstudent4,tjlstudent4
+tjlstudent5,tjlstudent5,tjlstudent5
+tjlstudent6,tjlstudent6,tjlstudent6
+EOF
+;;
+esac
+

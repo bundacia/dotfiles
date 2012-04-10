@@ -1,0 +1,2 @@
+#!/bin/sh
+dcop klipper klipper getClipboardHistoryItem 0 | aspell list 
