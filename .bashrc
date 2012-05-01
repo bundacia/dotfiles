@@ -15,3 +15,5 @@ export EDITOR=vim
 # colorize ls
 alias ls='ls -G'
 source ~/.alias
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

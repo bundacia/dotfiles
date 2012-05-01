@@ -6,3 +6,6 @@ vbell off
 
 # Lots and lots of scrollback
 defscrollback 5000
+
+# make screen use a login shell (for rvm https://rvm.io/workflow/screen/)
+shell -${SHELL}
