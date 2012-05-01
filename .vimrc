@@ -106,16 +106,6 @@ nmap <s-tab> <<
 
 " don't require a save before switching buffers
 set hidden
-" press f5 to list and select buffers
-nnoremap <F5> :buffers<CR>:buffer<Space>
-
-" highlight row and col or cursor
-"au WinLeave * set nocursorline
-"au WinEnter * set cursorline
-"set cursorline
-
-" ---- Windows ---- "
-"set noea "Don't equalize each window when a new one is opened or closed"
 
 set modeline " respect modelines 
 
@@ -136,10 +126,6 @@ set backspace=indent,eol,start  " allow backspacing over eevrything in insert mo
 " using solorized from http://ethanschoonover.com/solarized
 set background=dark
 colorscheme solarized
-
-" but make comments and search greys
-"hi Comment	ctermfg=241
-"hi Search	ctermbg=244
 
 """"""""""""""""""""""
 " Align
