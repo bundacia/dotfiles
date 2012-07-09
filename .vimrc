@@ -69,12 +69,6 @@ let g:snips_author = 'Trevor Little'
 source ~/.vim/snippets/support_functions.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NERD_tree
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <C-N> :NERDTreeToggle<CR>
-let NERDTreeQuitOnOpen = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set wildmenu "Turn on WiLd menu
@@ -183,11 +177,6 @@ nmap <C-D>  iuse Data::Dumper 'Dumper'; warn Dumper [];#DEBUG#8hi
 
 let perl_include_pod = 1
 let perl_extended_vars = 1
-
-" mason syntax highlighting
-au syntax mason so /usr/local/share/vim/vim71/syntax/mason.vim
-au BufNewFile,BufRead *.tpl set ft=mason
-nnoremap M :set filetype=mason<RETURN>
 
 """"""""""""""""""""""
 " => RELOAD

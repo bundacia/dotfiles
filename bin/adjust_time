@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+for my $file (@ARGV) {
+   my @stat = stat($file);
+   my $time = $stat[9] + (3 * 60 * 60);
+   utime $time, $time+1, $file;
+}
