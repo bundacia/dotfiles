@@ -98,6 +98,9 @@ vmap <S-tab> <gv
 nmap <tab> >><esc>
 nmap <s-tab> <<
 
+" made tilde work like an operator
+set tildeop
+
 " don't require a save before switching buffers
 set hidden
 
