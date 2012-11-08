@@ -4,6 +4,8 @@
 # Then make esceptions for the stuff we really to want to track.
 !bin
 !bin/*
+!xmacros
+!xmacros/*
 !.vim
 # no way to include everything recursively so far as I can tell =(
 !.vim/*
