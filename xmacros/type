@@ -1,0 +1,2 @@
+#! /bin/sh
+xmacroplay ':0.0' < ~/xmacros/$1.txt

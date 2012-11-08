@@ -1,0 +1,8 @@
+#!/usr/bin/perl
+
+print STDERR "Enter your macro text: ";
+chomp($p = <>);
+
+@c = split //, $p;
+
+print "KeyStrPress $_\n"."KeyStrRelease $_\n" for @c;
