@@ -155,7 +155,7 @@ map ,A :call AlignHash()<CR>
 " => Ruby editing
 """"""""""""""""""""""
 " 2-space tabs for ruby files
-autocmd FileType ruby,eruby,yaml,haml,scss set shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber set shiftwidth=2 softtabstop=2 expandtab
 map T :w<CR>:!bundle exec rspec %:<C-R>=line('.')<CR><CR>
 "autocmd FileType ruby,eruby,yaml,haml,scss colorscheme vividchalk
 

@@ -21,6 +21,7 @@
 !.gitconfig
 !.vimrc
 !.screenrc*
+!.tmux.conf
 !.gitignore
 !.gitmodules
 

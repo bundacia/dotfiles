@@ -26,8 +26,8 @@ parse_git() {
     fi
    
 
-    local forward="⟰"
-    local behind="⟱"
+    local forward="↟"
+    local behind="↡"
     local dot="•"
 
     local remote_pattern_ahead="# Your branch is ahead of"
@@ -75,6 +75,7 @@ bindkey -e # Use emacs mode
 
 setopt append_history hist_ignore_dups hist_ignore_space hist_no_store hist_verify
 setopt correct # correct misspelled commands
+setopt nullglob
 
 # tab completion for PID :D
 zstyle ':completion:*:*:kill:*' menu yes select
@@ -93,3 +94,6 @@ unsetopt ALL_EXPORT
 
 alias ls='ls -G'
 source ~/.alias
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

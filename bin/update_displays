@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $check_docked_command = "xrandr | grep 'HDMI2 connected'";
+my $dock_cmd  ='xrandr --output LVDS1 --off; xrandr --output VGA1 --auto --left-of HDMI2 --output HDMI2 --auto';
+my $undock_cmd='xrandr --output VGA1 --off --output HDMI2 --off; xrandr --output LVDS1 --auto';
+
+`$check_docked_command` 
+    ? `$dock_cmd`
+    : `$undock_cmd`;
