@@ -81,6 +81,8 @@ set hlsearch  "Highlight search term
 
 set showmatch "Show matching bracets when text indicator is over them
 set mat=2     "How many tenths of a second to blink
+
+set number    "Line Numbers
         
 " ---- Tabs (whitespace) ---- "
 set softtabstop=4 "An indentation level every 4 columns"
