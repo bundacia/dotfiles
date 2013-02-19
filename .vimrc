@@ -37,6 +37,9 @@
 "     > pathogen.vim - http://www.vim.org/scripts/script.php?script_id=2332
 "         allow installing of plugins in .vim/bundles
 "
+"     > syntastic - https://github.com/scrooloose/syntastic
+"         Error checking for lots if different filetypes
+"
 " After Installing Plugind:
 "     try the folowwing to load the help pages:
 "         :helptags ~/.vim/doc
@@ -45,7 +48,9 @@
 """"""""""""""""""""""""""
 " => Add pathogen bundles
 """"""""""""""""""""""""""
-call pathogen#runtime_append_all_bundles() 
+call pathogen#infect() 
+"call pathogen#runtime_append_all_bundles() 
+
 
 """"""""""""""""""""""
 " => Set the leader
@@ -71,6 +76,17 @@ source ~/.vim/snippets/support_functions.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Move up and down by row, not line
+nmap j gj 
+nmap k gk
+
+" Make C-a go home in cmd mode like in bash
+cnoremap <C-a>  <Home>
+
+" ,, to unhilight searches
+nmap ,, :nohlsearch<CR>
+
 set wildmenu "Turn on WiLd menu
 
 set ignorecase "Ignore case when searching
