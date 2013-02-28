@@ -77,10 +77,6 @@ source ~/.vim/snippets/support_functions.vim
 " => VIM user interface
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Move up and down by row, not line
-nmap j gj 
-nmap k gk
-
 " Make C-a go home in cmd mode like in bash
 cnoremap <C-a>  <Home>
 
@@ -99,7 +95,11 @@ set showmatch "Show matching bracets when text indicator is over them
 set mat=2     "How many tenths of a second to blink
 
 set number    "Line Numbers
-        
+
+set backspace=indent,eol,start  " allow backspacing over eevrything in insert mode
+
+set dictionary+=/usr/share/dict/words " set dictionary for word completion
+
 " ---- Tabs (whitespace) ---- "
 set softtabstop=4 "An indentation level every 4 columns"
 set expandtab     "Convert all tabs typed into spaces"
@@ -113,7 +113,7 @@ vmap <tab> >gv
 vmap <S-tab> <gv
 
 " make tab in normal mode ident code
-nmap <tab> >><esc>
+nmap <tab> >>
 nmap <s-tab> <<
 
 " made tilde work like an operator
@@ -133,8 +133,6 @@ setglobal t_Co=256 " my term can do 256 colors
 filetype plugin on
 filetype indent on
 
-set backspace=indent,eol,start  " allow backspacing over eevrything in insert mode
-
 """"""""""""""""""""""
 " => Coloring
 """"""""""""""""""""""
@@ -145,7 +143,6 @@ colorscheme solarized
 """"""""""""""""""""""
 " Align
 """"""""""""""""""""""
-
 " align "words" (=>, #, :, etc)  vertically
 " relies on a script named 'align' in the path.
 function! Align() 
@@ -166,16 +163,47 @@ function! AlignHash()
     normal `s
 endfunction
 
-map ,a :call Align()<CR>
-map ,A :call AlignHash()<CR>
+map <leader>a :call Align()<CR>
+map <leader>A :call AlignHash()<CR>
 
 """"""""""""""""""""""
 " => Ruby editing
 """"""""""""""""""""""
 " 2-space tabs for ruby files
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber set shiftwidth=2 softtabstop=2 expandtab
-map T :w<CR>:!bundle exec rspec %:<C-R>=line('.')<CR><CR>
-"autocmd FileType ruby,eruby,yaml,haml,scss colorscheme vividchalk
+" Swap strings and symbols
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>' xysw'
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>: ds'i:
+" Run tests
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>t :call RunTestCommand(line('.'))<CR>
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>T :call RunTestCommand()<CR>
+
+function! GetTestCommand()
+    if expand('%:r') =~ '_spec$'
+        return 'bundle exec rspec'
+    elseif expand('%') =~ '\.feature$'
+        return 'bundle exec cucumber'
+    else
+        return '0'
+    endif
+endfunction
+
+function! RunTestCommand(...)
+    let cmd = GetTestCommand()
+
+    " if there's a command update the test command register (t)
+    if cmd != '0'
+        let @t = ':!' . cmd . ' ' . expand('%') . (a:0 == 1 ? ':'.line('.') : '')
+    endif
+
+    " if the test command register isn't empty, excecute it.
+    if strlen(@t) > 0
+        execute @t
+    elseif
+        echoerr "No test command to run"
+    end
+
+endfunction
 
 """"""""""""""""""""""
 " => Perl editing
@@ -194,7 +222,6 @@ autocmd FileType perl hi link podEscape       String
 autocmd FileType perl hi link podEscape2      Number
 
 nmap <C-D>  iuse Data::Dumper 'Dumper'; warn Dumper [];#DEBUG#8hi
-"nmap <C-B>  iBugzID: 
 
 let perl_include_pod = 1
 let perl_extended_vars = 1
