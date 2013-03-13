@@ -69,6 +69,13 @@ precmd () {
     RPROMPT="$(parse_git)"
 }
 
+connect_to_vpn(){
+    # create session if it doesn't already exist
+    tmux new-session -d -s vpns  >/dev/null 2>&1
+    # send the command to stop the running vpn and start the new one
+    tmux send-keys -tvpn:1 'C-C' "sudo openvpn --config $1" 'C-m'
+}
+
 PROMPT="%{$fg_bold[magenta]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%20<..<%~ %{$reset_color%}%{$fg[blue]%}%#%{$reset_color%} "
 
 bindkey -e # Use emacs mode
