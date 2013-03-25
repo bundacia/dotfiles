@@ -66,15 +66,23 @@ parse_git() {
 }
 
 precmd () {
-    RPROMPT="$(parse_git)"
+    RPROMPT="$(parse_git) - $(current_vpn)"
 }
 
 connect_to_vpn(){
     # create session if it doesn't already exist
     tmux new-session -d -s vpns  >/dev/null 2>&1
     # send the command to stop the running vpn and start the new one
-    tmux send-keys -tvpn:1 'C-C' "sudo openvpn --config $1" 'C-m'
+    tmux send-keys -tvpn:1 'C-C' " sudo openvpn --config $1" 'C-m'
+    sleep 0.5 # give time to connect =)
 }
+
+current_vpn(){
+    pgrep openvpn|xargs ps|sed -n 's/.*tlittle-\(.*\).ovpn/\1/p'
+}
+
+# show full history, with optional grep filter
+h() { if [ -z "$*" ]; then history 1; else history 1 | egrep "$@"; fi; }
 
 PROMPT="%{$fg_bold[magenta]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%20<..<%~ %{$reset_color%}%{$fg[blue]%}%#%{$reset_color%} "
 
