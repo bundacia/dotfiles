@@ -72,6 +72,12 @@ endtry
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:snips_author = 'Trevor Little'
 source ~/.vim/snippets/support_functions.vim
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => syntastic
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" check syntax on save, but not for cucumber files
+"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['cucumber'] } 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface

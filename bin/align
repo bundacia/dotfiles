@@ -2,39 +2,28 @@
 
 delims = ARGV
 input  = STDIN.read.split("\n")
-output = Array.new
 
 # Modifies line in place so that the first
-# instance of delim on leach line are vertically aligned.
+# instance of delim on each line are vertically aligned.
 def align(delim, lines)
-  max_pos = -1
-  indent = lines.first.match(/^\s*/)[0]
-  cont = true
+  max_position = -1
+  indent       = lines.first.match(/^\s*/)[0]
+  continue     = true
 
-  lines.map do |line|                         # for each line
-
-    if cont and line.match(/^#{indent}[^\s]/)                                        # If still at the same indentation lvl
-      pos     = line.index(delim)             # find the delim
-      max_pos = [pos, max_pos].max if pos     # update max position
+  line_info = lines.map do |line|
+    if continue and line.match(/^#{indent}[^\s]/)
+      position     = line.index(delim)
+      max_position = [position, max_position].max if position
     else
-      cont = false
+      continue = false
     end
-
-    [ line, pos ]                             # return tuple of line & position
-
-  end.map do |info|                           # for each tuple
-    line, pos = info                          # get line & position
-
-    if pos                                    # if delim is on this line
-      pad = ' ' * (max_pos - pos)             # create a pad of the right length
-
-      if delim == ':'                         # put pad *after" colons
-        line[delim] += pad                
-        next;
-      end
-
-      line[delim] = pad + delim               # but *before* andthing else
-    end
+    [ line, position ]
+  end
+  
+  line_info.each do |line, position|
+    next unless position
+    pad = ' ' * (max_position - position)
+    line[delim] = delim == ':' ? delim + pad : pad + delim
   end
 
 end

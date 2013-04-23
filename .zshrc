@@ -71,7 +71,7 @@ precmd () {
 
 connect_to_vpn(){
     # create session if it doesn't already exist
-    tmux new-session -d -s vpns  >/dev/null 2>&1
+    tmux new-session -d -s vpn >/dev/null 2>&1
     # send the command to stop the running vpn and start the new one
     tmux send-keys -tvpn:1 'C-C' " sudo openvpn --config $1" 'C-m'
     sleep 0.5 # give time to connect =)
