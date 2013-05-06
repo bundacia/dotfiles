@@ -6,8 +6,9 @@ options = ARGV
 if options.include?('--help') || options.include?('-h')
   puts "A simple pomodoro timer in ruby."
   puts "Usage:"
-  puts "$ ruby pomodoro.rb [--time TIME]"
+  puts "$ ruby pomodoro.rb [--time TIME] [--break BREAK_TIME]"
   puts "TIME: time (in minutes) of a single pomodoro"
+  puts "BREAK_TIME: time (in minutes) of the break between pomodoros"
   exit
 end
 
@@ -20,12 +21,22 @@ if i = options.index('--time')
   end
 end
 
+break_time = 5
+if i = options.index('--break')
+  break_time = options[i+1].to_i
+  if break_time == 0
+    puts "Invalid break time specified."
+    exit(1)
+  end
+end
+
 
 #notifier = 'growlnotify -s -m '
 notifier = 'kdialog --title Pomodoro --msgbox '
-pomodoro = OpenStruct.new(:name => 'Pomodoro', :time => pomodoro_time * 60, :message => 'Pomodoro Time is up!', :notifier => notifier)
-short_break = OpenStruct.new(:name => 'Short break', :time => 5 * 60, :message => 'Pomodoro Break is up!', :notifier => notifier)
-long_break = OpenStruct.new(:name => 'Long break', :time => 15 * 60, :message => 'Pomodoro Break is up!', :notifier => notifier)
+pomodoro = OpenStruct.new(:name => 'Pomodoro', :time => pomodoro_time * 60, :message => 'Take a break!', :notifier => notifier)
+short_break = OpenStruct.new(:name => 'Short break', :time => break_time * 60, :message => 'Break is up!', :notifier => notifier)
+long_break = short_break
+#long_break = OpenStruct.new(:name => 'Long break', :time => 15 * 60, :message => 'Break is up!', :notifier => notifier)
 
 def start(chunk)
   puts "\n#{chunk.name}!"

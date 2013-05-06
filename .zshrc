@@ -110,5 +110,7 @@ unsetopt ALL_EXPORT
 alias ls='ls -G'
 source ~/.alias
 
+source /etc/zsh_command_not_found
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

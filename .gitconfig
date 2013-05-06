@@ -7,8 +7,8 @@
 	branch = auto
 [alias]
         l  = log --pretty=format:'%C(red)%h%C(reset) %C(blue)%aN%C(reset): %s %C(bold cyan)%d%Creset' --date-order --graph
-        ld = log --pretty=format:'%C(red)%h%C(reset) %C(bold cyan)%d%Creset %C(blue)%aN%C(reset) [%cd]: %s' --date-order --graph --date=relative
 	st = status --short
         ci = commit -va
         di = diff
         hist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s' --date-order
+        vim  = grep -Ovim

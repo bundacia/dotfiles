@@ -3,21 +3,21 @@
 """"""""""""""""""""""""""""""
 " Plugins Used:
 "     > surround.vim - http://www.vim.org/scripts/script.php?script_id=1697
-"       Makes it easy to work with surrounding text.
+"       makes it easy to work with surrounding text.
 "           info -> :help surround
 "
-"     > rails.vim - https://github.com/tpope/vim-rails 
-"                OR http://www.vim.org/scripts/script.php?script_id=1567
-"       Rails goodness.
+"     > rails.vim - https://github.com/tpope/vim-rails
+"                or http://www.vim.org/scripts/script.php?script_id=1567
+"       rails goodness.
 "           info -> :help rails
 "
-"     > NERD_tree.vim - http://www.vim.org/scripts/script.php?script_id=1658
-"                    OR https://github.com/scrooloose/nerdtree
-"       File browser.
-"           info -> :help NERD_tree.txt
+"     > nerd_tree.vim - http://www.vim.org/scripts/script.php?script_id=1658
+"                    or https://github.com/scrooloose/nerdtree
+"       file browser.
+"           info -> :help nerd_tree.txt
 "
 "     > scrnpipe.vim - http://www.vim.org/scripts/script.php?script_id=3507
-"                   OR https://github.com/bundacia/ScreenPipe 
+"                   OR https://github.com/bundacia/ScreenPipe
 "       Send selected text to another screen.
 "
 "     > snipmate.vim - http://www.vim.org/scripts/script.php?script_id=2540
@@ -48,8 +48,8 @@
 """"""""""""""""""""""""""
 " => Add pathogen bundles
 """"""""""""""""""""""""""
-call pathogen#infect() 
-"call pathogen#runtime_append_all_bundles() 
+call pathogen#infect()
+"call pathogen#runtime_append_all_bundles()
 
 
 """"""""""""""""""""""
@@ -58,7 +58,7 @@ call pathogen#infect()
 let mapleader = ","
 
 """"""""""""""""""""""
-" => Persistent undo 
+" => Persistent undo
 """"""""""""""""""""""
 " wrap in try since it needs vim >=7.3 to work
 try
@@ -77,7 +77,7 @@ source ~/.vim/snippets/support_functions.vim
 " => syntastic
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " check syntax on save, but not for cucumber files
-"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['cucumber'] } 
+"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['cucumber'] }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -119,8 +119,9 @@ vmap <tab> >gv
 vmap <S-tab> <gv
 
 " make tab in normal mode ident code
-nmap <tab> >>
-nmap <s-tab> <<
+" NOTE: uncommenting this will remap C-I as well since vim sees them as the same thing =)
+"nmap <tab> >>
+"nmap <s-tab> <<
 
 " made tilde work like an operator
 set tildeop
@@ -128,7 +129,7 @@ set tildeop
 " don't require a save before switching buffers
 set hidden
 
-set modeline " respect modelines 
+set modeline " respect modelines
 
 set ofu=syntaxcomplete#Complete
 
@@ -146,12 +147,16 @@ filetype indent on
 set background=dark
 colorscheme solarized
 
+" highlight empty space at the end of a line and all tabs
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+match ExtraWhitespace /\s\+$\|\t/
+
 """"""""""""""""""""""
 " Align
 """"""""""""""""""""""
 " align "words" (=>, #, :, etc)  vertically
 " relies on a script named 'align' in the path.
-function! Align() 
+function! Align()
     " Mark cursor position as 's', then yank word
     normal msyw
     " Call align with the current word
@@ -160,7 +165,7 @@ function! Align()
     normal `s
 endfunction
 
-function! AlignHash() 
+function! AlignHash()
     " Mark cursor position
     normal ms
     " Call align with => and ,
