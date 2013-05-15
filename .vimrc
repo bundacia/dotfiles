@@ -40,6 +40,9 @@
 "     > syntastic - https://github.com/scrooloose/syntastic
 "         Error checking for lots if different filetypes
 "
+"     > ack - http://www.vim.org/scripts/script.php?script_id=2572
+"         arep your working tree with ack from within vim
+"
 " After Installing Plugind:
 "     try the folowwing to load the help pages:
 "         :helptags ~/.vim/doc
@@ -66,6 +69,11 @@ try
     set undofile
 catch
 endtry
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ack
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ackprg='ack-grep -H --nocolor --nogroup --column'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => snipmate
@@ -147,9 +155,26 @@ filetype indent on
 set background=dark
 colorscheme solarized
 
-" highlight empty space at the end of a line and all tabs
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-match ExtraWhitespace /\s\+$\|\t/
+""""""""""""""""""""""
+" => Whitespace
+""""""""""""""""""""""
+" highlight empty space at the end of a line
+autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
+autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+highlight EOLWS ctermbg=red guibg=red
+
+function! <SID>StripTrailingWhitespace()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+nmap <silent> <leader><space> :call <SID>StripTrailingWhitespace()<CR>
 
 """"""""""""""""""""""
 " Align
@@ -185,6 +210,8 @@ autocmd FileType ruby,eruby,yaml,haml,scss,cucumber set shiftwidth=2 softtabstop
 " Swap strings and symbols
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>' xysw'
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>: ds'i:
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>H i:f:xi =>F:
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>h xf r:ldf>F l
 " Run tests
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>t :call RunTestCommand(line('.'))<CR>
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>T :call RunTestCommand()<CR>
