@@ -19,12 +19,12 @@ parse_git() {
     local branch=$(parse_git_branch)
     if [[ -z $branch ]]; then
         return
-    #elif [[ $branch == 'master' ]]; then 
+    #elif [[ $branch == 'master' ]]; then
     #    branch=''
     else
         branch="%{$fg[yellow]%}$branch%{$reset_color%}"
     fi
-   
+
 
     local forward="↟"
     local behind="↡"
@@ -43,7 +43,7 @@ parse_git() {
         if [[ $git_status =~ "Untracked files" ]]; then
             state="%{$fg[red]%}${dot}%{$reset_color%}"
         fi
-        if [[ $git_status =~ "Changed but not updated" ]]; then
+        if [[ $git_status =~ "Changes not staged for commit" ]]; then
             state="${state}%{$fg[yellow]%}${dot}%{$reset_color%}"
         fi
         if [[ $git_status =~ "Changes to be committed" ]]; then
@@ -69,16 +69,15 @@ precmd () {
     RPROMPT="$(parse_git) - $(current_vpn)"
 }
 
-connect_to_vpn(){
-    # create session if it doesn't already exist
-    tmux new-session -d -s vpn >/dev/null 2>&1
-    # send the command to stop the running vpn and start the new one
-    tmux send-keys -tvpn:1 'C-C' " sudo openvpn --config $1" 'C-m'
-    sleep 0.5 # give time to connect =)
+switch_to_vpn(){
+    sudo service openvpn stop
+    sudo service openvpn start $1
 }
 
 current_vpn(){
-    pgrep openvpn|xargs ps|sed -n 's/.*tlittle-\(.*\).ovpn/\1/p'
+    service openvpn status |\
+        grep 'is running'  |\
+        sed -n "s/.*'tlittle-\(.*\)'.*/\1/p"
 }
 
 # show full history, with optional grep filter
