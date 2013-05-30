@@ -1,0 +1,75 @@
+#!/bin/sh
+
+run() {
+  retrive_offscreen_windows
+  resize_all_windows
+  resize_browser_windows
+  resize_terminal_windows
+  turn_off_all_fullscreen_windows
+}
+
+retrive_offscreen_windows() {
+  padding=10
+  for window in $(off_screen_windows); do
+    wmctrl -i -r $window -e 0,$padding,$padding,-1,-1
+    padding=$((padding + 30))
+  done
+}
+
+resize_all_windows() {
+  for window in $(all_windows); do
+    wmctrl -i -r $window -e 0,-1,-1,-1,$(percentage_of_screen_height 40)
+  done
+}
+
+resize_browser_windows() {
+  for window in $(browser_windows); do
+    wmctrl -i -r $window -e 0,-1,-1,-1,$(percentage_of_screen_height 80)
+  done
+}
+
+resize_terminal_windows() {
+  for window in $(terminal_windows); do
+    wmctrl -i -r $window -e 0,-1,-1,700,$(percentage_of_screen_height 50)
+  done
+}
+
+turn_off_all_fullscreen_windows() {
+  for window in $(all_windows); do
+    wmctrl -i -r $window -b remove,fullscreen
+  done
+}
+
+off_screen_windows() {
+  wmctrl -l -G | grep -v plasma-desktop | awk '
+    match($3, /^-/){print $1};
+    $4 > 300       {print $1};
+  '
+}
+
+browser_windows() {
+  wmctrl -l -x -i | awk '
+    $3=="google-chrome.Google-chrome" {print $1};
+    $3=="Navigator.Firefox"           {print $1};
+  '
+}
+
+terminal_windows() {
+  wmctrl -l -x -i | awk '
+    $3=="konsole.Konsole" {print $1};
+  '
+}
+
+all_windows() {
+  wmctrl -l -x -i | awk '
+    $3!="Plasma.Plasma" {print $1}
+  '
+}
+
+SCREEN_HEIGHT=`xrandr -q|grep '*'|head -n1|awk '{print $1}'|cut -dx -f2`
+
+percentage_of_screen_height() {
+  echo "($SCREEN_HEIGHT * .$1)/1"|bc
+}
+
+run

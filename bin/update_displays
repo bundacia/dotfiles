@@ -1,11 +1,47 @@
-#!/usr/bin/perl
-use strict;
-use warnings;
+#!/bin/sh
 
-my $check_docked_command = "xrandr | grep 'HDMI2 connected'";
-my $dock_cmd  ='xrandr --output eDP1 --off; xrandr --output VGA1 --auto --left-of HDMI2 --output HDMI2 --auto';
-my $undock_cmd='xrandr --output VGA1 --off --output HDMI2 --off; xrandr --output eDP1 --auto';
+exec 1>> /tmp/update_displays.log
 
-`$check_docked_command` 
-    ? `$dock_cmd`
-    : `$undock_cmd`;
+read EXTERNAL_STATUS  < /sys/class/drm/card0-HDMI-A-2/status
+read EXTERNAL_ENABLED < /sys/class/drm/card0-HDMI-A-2/enabled
+
+read INTERNAL_ENABLED < /sys/class/drm/card0-eDP-1/enabled
+
+export DISPLAY=:0
+export XAUTHORITY=$(getent passwd $(w -h -s|awk '$3==":0"{print $1}'|sed 1q)|cut -d: -f6)/.Xauthority
+
+dock() {
+    echo "Disabling Internal Monitor"
+    xrandr --output eDP1 --off || true
+    echo "Enabling External Monitor"
+    xrandr --output VGA1 --auto --left-of HDMI2 --output HDMI2 --auto || true
+}
+
+undock() {
+    echo "Disabling External Monitor"
+    xrandr --output VGA1 --off --output HDMI2 --off || true
+    echo "Enabling Internal Monitor"
+    xrandr --output eDP1 --auto || true
+}
+
+date
+
+if [ "$EXTERNAL_STATUS" = "connected" ]; then
+    echo "External Monitor Connected"
+    if [ "$EXTERNAL_ENABLED" = "disabled" ]; then
+        echo "External Monitor Disabled"
+        dock
+    else
+        echo "External Monitor Enabled"
+        echo "Nothing to do"
+    fi
+else
+    echo "External Monitor Disconnected"
+    if [ "$INTERNAL_ENABLED" = "disabled" ]; then
+        echo "Internal Monitor Disabled"
+        undock
+    else
+        echo "Internal Monitor Enabled"
+        echo "Nothing to do"
+    fi
+fi

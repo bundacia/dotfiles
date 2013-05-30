@@ -107,6 +107,7 @@ PATH=$HOME/bin:$PATH
 unsetopt ALL_EXPORT
 
 alias ls='ls -G'
+alias ack='ack-grep'
 source ~/.alias
 
 source /etc/zsh_command_not_found

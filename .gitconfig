@@ -5,6 +5,7 @@
 	diff = auto
 	status = auto
 	branch = auto
+	interactive = auto
 [alias]
         l  = log --pretty=format:'%C(red)%h%C(reset) %C(blue)%aN%C(reset): %s %C(bold cyan)%d%Creset' --date-order --graph
 	st = status --short
