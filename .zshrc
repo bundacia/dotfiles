@@ -83,6 +83,16 @@ current_vpn(){
 # show full history, with optional grep filter
 h() { if [ -z "$*" ]; then history 1; else history 1 | egrep "$@"; fi; }
 
+start-ssh-agent() {
+    stop-ssh-agent > /dev/null 2>&1
+    eval `ssh-agent`
+    ssh-add
+}
+
+stop-ssh-agent() {
+    eval `ssh-agent -k`
+}
+
 PROMPT="%{$fg_bold[magenta]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%20<..<%~ %{$reset_color%}%{$fg[blue]%}%#%{$reset_color%} "
 
 bindkey -e # Use emacs mode
