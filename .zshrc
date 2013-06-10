@@ -86,7 +86,7 @@ h() { if [ -z "$*" ]; then history 1; else history 1 | egrep "$@"; fi; }
 start-ssh-agent() {
     stop-ssh-agent > /dev/null 2>&1
     eval `ssh-agent`
-    ssh-add
+    ssh-add -t $(( 60 * 60 * 4 ))
 }
 
 stop-ssh-agent() {
