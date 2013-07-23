@@ -206,7 +206,7 @@ map <leader>A :call AlignHash()<CR>
 " => Ruby editing
 """"""""""""""""""""""
 " 2-space tabs for ruby files
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber set shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 " Swap strings and symbols
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>' xysw'
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>: ds'i:
