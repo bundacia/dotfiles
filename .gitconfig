@@ -11,5 +11,6 @@
 	st = status --short
         ci = commit -va
         di = diff
-        hist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s' --date-order
+        hist = log --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s' --date-order
+        allhist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s' --date-order
         vim  = grep -Ovim
