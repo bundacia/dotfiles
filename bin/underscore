@@ -1,0 +1,5 @@
+#!/home/tlittle/.rvm/rubies/ruby-1.9.3-p327/bin/ruby
+
+camel_case_word = ARGV[0] ? ARGV[0] : STDIN.read
+
+puts camel_case_word.gsub(/(\w)([A-Z])/, "\\1_\\2").downcase

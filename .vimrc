@@ -85,7 +85,7 @@ source ~/.vim/snippets/support_functions.vim
 " => syntastic
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " check syntax on save, but not for cucumber files
-"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['cucumber'] }
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['cucumber', 'ruby'] }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -201,6 +201,24 @@ endfunction
 
 map <leader>a :call Align()<CR>
 map <leader>A :call AlignHash()<CR>
+
+""""""""""""""""""""""
+" Underscore
+""""""""""""""""""""""
+" convert CamelCase words to Underscore
+" relies on a script named 'underscore' in the path.
+function! Underscore()
+    " Mark cursor position
+    normal ms
+    " hilight the current word
+    normal viw
+    " Call underscore
+    execute "'<,'>!underscore "
+    " Restore cursor position
+    normal `s
+endfunction
+
+map <leader>u :call Underscore()<CR>
 
 """"""""""""""""""""""
 " => Ruby editing
