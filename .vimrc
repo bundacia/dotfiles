@@ -85,7 +85,7 @@ source ~/.vim/snippets/support_functions.vim
 " => syntastic
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " check syntax on save, but not for cucumber files
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['cucumber', 'ruby'] }
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['cucumber', 'ruby', 'haml'] }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface

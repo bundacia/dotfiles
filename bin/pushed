@@ -1,0 +1,39 @@
+#!/bin/bash
+cd /var/www/mobile;
+
+cat <<HTMLHEAD
+Content-type: text/html
+
+
+<html>
+<head>
+<style>
+table, th, td, tr {
+  font-family: sans-serif;
+  border: 1px solid black;
+  padding: 4px;
+}
+</style> 
+</head>
+HTMLHEAD
+echo "<body>"
+
+ref=$(git symbolic-ref HEAD 2> /dev/null)
+echo "<h1>Currently on Branch: <span style='color: blue'>${ref#refs/heads/}</span></h1>"
+
+echo '<h2>Last Commit</h2>'
+echo "<pre>"
+git log -n1
+echo "</pre>"
+
+echo '<h2>Pushed Versions</h2>'
+echo '<table><tr><th>Ticket</th><th>Merge Date</th><th>Commit</th></tr>'
+git log \
+  --date=short \
+  --format='%h %ad %s' \
+  --grep 'Merge pull request .* NEXT-[[:digit:]]\+ to develop' \
+  | sed -e 's/\([^ ]\+\) \([^ ]\+\) .*\(NEXT-[[:digit:]]\+\).*/<tr><td><a href="http:\/\/galaxy.starfieldtms.com\/jira\/browse\/\3">\3<\/a><\/td> <td>\2<\/td> <td>\1<\/td><\/tr>/'
+echo '</table>'
+
+echo "</body>"
+echo "</html>"
