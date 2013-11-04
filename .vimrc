@@ -47,7 +47,14 @@
 "     try the folowwing to load the help pages:
 "         :helptags ~/.vim/doc
 "
-"
+
+""""""""""""""""""""""""""
+" => Setup shell for :!
+""""""""""""""""""""""""""
+" this makes it use an interactive shell so that the .zshrc
+" file gets sourced and all my aliases and stuff are present.
+"BROKEN!"set shell=zsh\ -i
+
 """"""""""""""""""""""""""
 " => Add pathogen bundles
 """"""""""""""""""""""""""
@@ -194,7 +201,7 @@ function! AlignHash()
     " Mark cursor position
     normal ms
     " Call align with => and ,
-    execute ".,$!align '=>' ,"
+    execute ".,$!align '=' ,"
     " Restore cursor position
     normal `s
 endfunction

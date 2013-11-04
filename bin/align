@@ -19,7 +19,7 @@ def align(delim, lines)
     end
     [ line, position ]
   end
-  
+
   line_info.each do |line, position|
     next unless position
     pad = ' ' * (max_position - position)
@@ -28,7 +28,44 @@ def align(delim, lines)
 
 end
 
+def align_nth(delim, n, lines)
+  max_position = -1
+  indent       = lines.first.match(/^\s*/)[0]
+  continue     = true
+  first_line_starts_with_delim = lines.first =~ /^\s*#{Regexp.escape(delim)}/
+
+  line_info = lines.map do |line|
+    if continue and (line.match(/^#{indent}[^\s]/) or (first_line_starts_with_delim and line.match(/^\s*#{Regexp.escape(delim)}/)))
+      position     = find_nth_char_index(line,delim,n)
+      max_position = [position, max_position].max if position
+    else
+      continue = false
+    end
+    [ line, position ]
+  end
+
+  line_info.each do |line, position|
+    next unless position
+    pad = ' ' * (max_position - position)
+    line[position] = delim == ':' ? delim + pad : pad + delim
+  end
+
+end
+
+def find_nth_char_index(line, char, n)
+  (0 ... line.length).find_all { |i| line[i,1] == char }[n]
+end
+
 # For each delim loop through the input and align
-delims.each { |delim| align(delim.strip, input) }
+
+delims.each do |delim|
+  delim = delim.strip
+  if delim == '|'
+    count = input.first.count(delim)
+    (0..count-1).each {|n| align_nth(delim, n, input) }
+  else
+    align_nth(delim, 0, input)
+  end
+end
 
 puts input
