@@ -1,0 +1,47 @@
+#!/home/tlittle/.rvm/rubies/ruby-1.9.3-p327/bin/ruby
+
+require 'nokogiri'
+
+def parse(node)
+  case node.name
+  when 'table'
+    parse_table node
+  when 'p'
+    parse_line node
+  when /^h\d$/
+    parse_line node
+  else
+    node.children.each {|child| parse child}
+  end
+end
+
+def parse_table(node)
+  node.css('tr').each do |row|
+    print '    | '
+    row.css('td,th').each do |col|
+      print clean(col.content) + ' | '
+    end
+    print "\n";
+  end
+end
+
+def parse_line(node)
+  line = clean(node.content)
+  case line
+  when /^(given|when|then|and)/i
+    puts '  ' + line
+  when /^(scenario|feature)/i
+    puts "\n" + line
+  when /^examples/i
+    puts "\n  " + line
+  else
+    puts line
+  end
+end
+
+def clean(str)
+ str.strip.gsub(/[^[:ascii:]]/,'')
+end
+
+doc = Nokogiri::HTML(STDIN)
+parse doc
