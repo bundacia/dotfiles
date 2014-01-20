@@ -112,6 +112,12 @@ zstyle ':completion:*:kill:*' force-list always
 # Make the delete key work 
 bindkey '^[[3~' delete-char
 
+# \C-x\C-e to open an editor to edit the current line (fc will open the previous)
+# this mimics the bash behavior
+autoload edit-command-line
+zle -N edit-command-line
+bindkey '^Xe' edit-command-line
+
 # look in /usr/local first (macports, anything manually compiled)
 PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/mysql/bin:$PATH
 

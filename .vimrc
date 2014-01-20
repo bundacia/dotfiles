@@ -43,6 +43,9 @@
 "     > ack - http://www.vim.org/scripts/script.php?script_id=2572
 "         arep your working tree with ack from within vim
 "
+"     > GitGutter - https://github.com/airblade/vim-gitgutter
+"         Show modified/added/deleted lines in sign column
+"
 " After Installing Plugind:
 "     try the folowwing to load the help pages:
 "         :helptags ~/.vim/doc
@@ -163,10 +166,22 @@ set background=dark
 colorscheme solarized
 
 """"""""""""""""""""""
+" GitGutter
+""""""""""""""""""""""
+" clear signcolumn so that gitgutter will use the LineNr color
+highlight SignColumn ctermbg=0
+highlight GitGutterAdd          ctermfg=2           ctermbg=0 " an added line
+highlight GitGutterChange       ctermfg=brown       ctermbg=0 " a changed line
+highlight GitGutterDelete       ctermfg=darkred     ctermbg=0 " at least one removed line
+highlight GitGutterChangeDelete ctermfg=lightyellow ctermbg=0 " a changed line followed by at least one removed line
+" Only update when reading or writing a file
+let g:gitgutter_eager = 0
+
+""""""""""""""""""""""
 " => Whitespace
 """"""""""""""""""""""
 " highlight empty space at the end of a line
-autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
+autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@<!$/
 autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 highlight EOLWS ctermbg=red guibg=red
 
@@ -235,11 +250,16 @@ autocmd FileType ruby,eruby,yaml,haml,scss,cucumber set shiftwidth=2 softtabstop
 " Swap strings and symbols
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>' xysw'
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>: ds'i:
+" Swap `:key => value` for `key: value` and back
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>H i:f:xi =>F:
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>h xf r:ldf>F l
 " Run tests
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>t :call RunTestCommand(line('.'))<CR>
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>T :call RunTestCommand()<CR>
+
+" Get :A to work for javascript files (from https://github.com/tpope/vim-rails/issues/142)
+autocmd User Rails/app/assets/javascripts/*/*.js,Rails/app/assets/javascripts/*.js let b:rails_alternate = substitute(substitute(rails#buffer().path(), 'app/assets', 'spec', ''), '\.js', '_spec.js', '')
+autocmd User Rails/spec/javascripts/*/*.js,Rails/spec/javascripts/*.js let b:rails_alternate = substitute(substitute(rails#buffer().path(), 'spec/javascripts', 'app/assets/javascripts', ''), '_spec\.js', '.js', '')
 
 function! GetTestCommand()
     if expand('%:r') =~ '_spec$'
