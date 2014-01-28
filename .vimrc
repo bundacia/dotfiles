@@ -72,9 +72,10 @@ call pathogen#infect()
 
 
 """"""""""""""""""""""
-" => Set the leader
+" => Set the leaders
 """"""""""""""""""""""
 let mapleader = ","
+let maplocalleader = "\\"
 
 """"""""""""""""""""""
 " => Persistent undo
