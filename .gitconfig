@@ -1,16 +1,30 @@
 [user]
-	name = Trevor Little
-	email = trevor.little@starfieldtms.com
+    name = Trevor Little
+    email = trevor.little@starfieldtms.com
 [color]
-	diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
 [alias]
-        l  = log --pretty=format:'%C(red)%h%C(reset) %C(blue)%aN%C(reset): %s %C(bold cyan)%d%Creset' --date-order --graph
-	st = status --short
-        ci = commit -va
-        di = diff
-        hist = log --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s' --date-order
-        allhist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s' --date-order
-        vim  = grep -Ovim
+    l  = log --pretty=format:'%C(red)%h%C(reset) %C(blue)%aN%C(reset): %s %C(bold cyan)%d%Creset' --date-order --graph
+    st = status --short
+    ci = commit -va
+    di = diff
+    hist = log --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s' --date-order
+    allhist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s' --date-order
+    vim  = grep -Ovim
+
+[merge]
+    tool = threesome
+
+[mergetool "threesome"]
+    cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
+    trustExitCode = true
+
+[diff]
+    tool = vimdiff
+
+[difftool]
+    prompt = false
+

@@ -46,6 +46,12 @@
 "     > GitGutter - https://github.com/airblade/vim-gitgutter
 "         Show modified/added/deleted lines in sign column
 "
+"     > commentary - https://github.com/tpope/vim-commentary
+"         Comment shortcuts for different file types
+"
+"     > threesome - http://sjl.bitbucket.org/threesome.vim/
+"         vim diff tool 
+"
 " After Installing Plugind:
 "     try the folowwing to load the help pages:
 "         :helptags ~/.vim/doc

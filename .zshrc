@@ -97,6 +97,10 @@ git-branch-diff() {
     git diff $(git merge-base ${1:-HEAD} ${2:-develop}) ${1:-HEAD}
 }
 
+git-branch-difftool() {
+    git difftool $(git merge-base ${1:-HEAD} ${2:-develop}) ${1:-HEAD}
+}
+
 PROMPT="%{$fg_bold[magenta]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%20<..<%~ %{$reset_color%}%{$fg[blue]%}%#%{$reset_color%} "
 
 bindkey -e # Use emacs mode
