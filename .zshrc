@@ -101,6 +101,10 @@ git-branch-difftool() {
     git difftool $(git merge-base ${1:-HEAD} ${2:-develop}) ${1:-HEAD}
 }
 
+push_branch() {
+    git push -u origin NEXT-$1:NEXT-$1
+}
+
 PROMPT="%{$fg_bold[magenta]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%20<..<%~ %{$reset_color%}%{$fg[blue]%}%#%{$reset_color%} "
 
 bindkey -e # Use emacs mode

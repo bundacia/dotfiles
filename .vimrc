@@ -37,9 +37,6 @@
 "     > pathogen.vim - http://www.vim.org/scripts/script.php?script_id=2332
 "         allow installing of plugins in .vim/bundles
 "
-"     > syntastic - https://github.com/scrooloose/syntastic
-"         Error checking for lots if different filetypes
-"
 "     > ack - http://www.vim.org/scripts/script.php?script_id=2572
 "         arep your working tree with ack from within vim
 "
@@ -97,12 +94,6 @@ let g:ackprg='ack-grep -H --nocolor --nogroup --column'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:snips_author = 'Trevor Little'
 source ~/.vim/snippets/support_functions.vim
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => syntastic
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" check syntax on save, but not for cucumber files
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['cucumber', 'ruby', 'haml'] }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
