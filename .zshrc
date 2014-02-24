@@ -66,7 +66,7 @@ parse_git() {
 }
 
 precmd () {
-    RPROMPT="$(parse_git) - $(current_vpn)"
+    RPROMPT="$(parse_git)" # - $(current_vpn)"
 }
 
 switch_to_vpn(){
