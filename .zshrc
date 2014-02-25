@@ -136,9 +136,14 @@ unsetopt ALL_EXPORT
 
 alias ls='ls -G'
 alias ack='ack-grep'
-source ~/.alias
 
-source /etc/zsh_command_not_found
+if [[ -a ~/.alias ]]; then
+    source ~/.alias
+fi
+
+if [[ -a /etc/zsh_command_not_found ]]; then
+    source /etc/zsh_command_not_found
+fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
