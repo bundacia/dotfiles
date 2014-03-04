@@ -86,7 +86,7 @@ h() { if [ -z "$*" ]; then history 1; else history 1 | egrep "$@"; fi; }
 start-ssh-agent() {
     stop-ssh-agent > /dev/null 2>&1
     eval `ssh-agent`
-    ssh-add  -t $(( 60 * 60 * 8 )) ~/.ssh/{id_dsa,qa_deployment_key,uat_deployment_key}
+    ssh-add  -t $(( 60 * 60 * 8 )) ~/.ssh/{dw_id_dsa,id_rsa,qa_deployment_key,uat_deployment_key}
 }
 
 stop-ssh-agent() {
@@ -135,7 +135,6 @@ PATH=$HOME/bin:$PATH
 unsetopt ALL_EXPORT
 
 alias ls='ls -G'
-alias ack='ack-grep'
 
 if [[ -a ~/.alias ]]; then
     source ~/.alias
