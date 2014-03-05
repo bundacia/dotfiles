@@ -10,6 +10,6 @@
 [submodule ".vim/bundle/splice.vim"]
 	path = .vim/bundle/splice.vim
 	url = https://github.com/sjl/splice.vim.git
-[submodule "/Users/tlittle/.vim/plugin/tslime.vim"]
-	path = /Users/tlittle/.vim/plugin/tslime.vim
+[submodule ".vim/plugin/tslime.vim"]
+	path = .vim/plugin/tslime.vim
 	url = https://github.com/jgdavey/tslime.vim.git

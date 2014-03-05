@@ -16,10 +16,6 @@
 "       file browser.
 "           info -> :help nerd_tree.txt
 "
-"     > scrnpipe.vim - http://www.vim.org/scripts/script.php?script_id=3507
-"                   OR https://github.com/bundacia/ScreenPipe
-"       Send selected text to another screen.
-"
 "     > snipmate.vim - http://www.vim.org/scripts/script.php?script_id=2540
 "                   OR git://github.com/msanders/snipmate.vim.git
 "       Snippet expansion like in TextMate
@@ -48,6 +44,9 @@
 "
 "     > threesome - http://sjl.bitbucket.org/threesome.vim/
 "         vim diff tool 
+"
+"     > tslime - https://github.com/jgdavey/tslime.vim
+"         Send commands to another tmux session/window/pane
 "
 " After Installing Plugind:
 "     try the folowwing to load the help pages:
@@ -252,8 +251,8 @@ autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>: ds'i:
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>H i:f:xi =>F:
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>h xf r:ldf>F l
 " Run tests
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>t :call RunTestCommand(line('.'))<CR>
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>T :call RunTestCommand()<CR>
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <silent> <leader>t :call RunTestCommandInTmux(line('.'))<CR>
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <silent> <leader>T :call RunTestCommandInTmux()<CR>
 
 " Get :A to work for javascript files (from https://github.com/tpope/vim-rails/issues/142)
 autocmd User Rails/app/assets/javascripts/*/*.js,Rails/app/assets/javascripts/*.js let b:rails_alternate = substitute(substitute(rails#buffer().path(), 'app/assets', 'spec', ''), '\.js', '_spec.js', '')
@@ -275,6 +274,23 @@ function! RunTestCommand(...)
     " if there's a command update the test command register (t)
     if cmd != '0'
         let @t = ':!' . cmd . ' ' . expand('%') . (a:0 == 1 ? ':'.line('.') : '')
+    endif
+
+    " if the test command register isn't empty, excecute it.
+    if strlen(@t) > 0
+        execute @t
+    elseif
+        echoerr "No test command to run"
+    end
+
+endfunction
+
+function! RunTestCommandInTmux(...)
+    let cmd = GetTestCommand()
+
+    " if there's a command update the test command register (t)
+    if cmd != '0'
+        let @t = "call SendToTmux('cd " . getcwd() . "; clear;date;" . cmd . ' ' . expand('%') . (a:0 == 1 ? ':'.line('.') : '') . "')"
     endif
 
     " if the test command register isn't empty, excecute it.
