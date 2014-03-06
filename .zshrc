@@ -10,6 +10,14 @@ autoload -U compinit   && compinit
 autoload -U promptinit && promptinit
 autoload -U colors     && colors
 
+os='unknown'
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+    os='linux'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+    os='osx'
+fi
+
 parse_git_branch () {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return
     echo "${ref#refs/heads/}"
@@ -66,18 +74,30 @@ parse_git() {
 }
 
 precmd () {
-    RPROMPT="$(parse_git)" # - $(current_vpn)"
+    RPROMPT="$(parse_git) - $(current_vpn)"
 }
 
 switch_to_vpn(){
-    sudo service openvpn stop
-    sudo service openvpn start $1
+    if [[ $os == 'osx' ]]; then
+        openvpnstart="/Applications/Tunnelblick.app/Contents/Resources/openvpnstart"
+        $openvpnstart killall; $openvpnstart start $1.tblk 0 0 0 1 &> /dev/null
+    else
+        sudo service openvpn stop
+        sudo service openvpn start $1
+    fi
 }
 
 current_vpn(){
-    service openvpn status |\
-        grep 'is running'  |\
-        sed -n "s/.*'tlittle-\(.*\)'.*/\1/p"
+    if [[ $os == 'osx' ]]; then
+        pgrep openvpn|\
+            xargs ps |\
+            tail -n1 |\
+            sed -n "s/.*tlittle-\([a-zA-Z]*\)\.tblk.*/\1/p"
+    else
+        service openvpn status |\
+            grep 'is running'  |\
+            sed -n "s/.*'tlittle-\([a-zA-Z]*\)'.*/\1/p"
+    fi
 }
 
 # show full history, with optional grep filter
