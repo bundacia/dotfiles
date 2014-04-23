@@ -86,7 +86,7 @@ endtry
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => ack
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ackprg='ack-grep -H --nocolor --nogroup --column'
+" let g:ackprg='ack-grep -H --nocolor --nogroup --column'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => snipmate
@@ -178,9 +178,9 @@ let g:gitgutter_eager = 0
 " => Whitespace
 """"""""""""""""""""""
 " highlight empty space at the end of a line
-autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@<!$/
-autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
-highlight EOLWS ctermbg=red guibg=red
+" autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@<!$/
+" autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+" highlight EOLWS ctermbg=red guibg=red
 
 function! <SID>StripTrailingWhitespace()
     " Preparation: save last search, and cursor position.
@@ -242,8 +242,8 @@ map <leader>u :call Underscore()<CR>
 """"""""""""""""""""""
 " => Ruby editing
 """"""""""""""""""""""
-" 2-space tabs for ruby files
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+" 2-space tabs for ruby files (and js)
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,javascript set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 " Swap strings and symbols
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>' xysw'
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>: ds'i:
@@ -251,6 +251,8 @@ autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>: ds'i:
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>H i:f:xi =>F:
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>h xf r:ldf>F l
 " Run tests
+" autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <silent> <leader>t :call RunTestCommand(line('.'))<CR>
+" autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <silent> <leader>T :call RunTestCommand()<CR>
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <silent> <leader>t :call RunTestCommandInTmux(line('.'))<CR>
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <silent> <leader>T :call RunTestCommandInTmux()<CR>
 

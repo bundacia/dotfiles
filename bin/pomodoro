@@ -31,8 +31,9 @@ if i = options.index('--break')
 end
 
 
-#notifier = 'growlnotify -s -m '
-notifier = 'kdialog --title Pomodoro --msgbox '
+# notifier = 'growlnotify -s -m '
+notifier = 'terminal-notifier -title "Pomodoro" -message '
+# notifier = 'kdialog --title Pomodoro --msgbox '
 pomodoro = OpenStruct.new(:name => 'Pomodoro', :time => pomodoro_time * 60, :message => 'Take a break!', :notifier => notifier)
 short_break = OpenStruct.new(:name => 'Short break', :time => break_time * 60, :message => 'Break is up!', :notifier => notifier)
 long_break = short_break
