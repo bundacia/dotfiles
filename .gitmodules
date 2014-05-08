@@ -13,3 +13,6 @@
 [submodule ".vim/plugin/tslime.vim"]
 	path = .vim/plugin/tslime.vim
 	url = https://github.com/jgdavey/tslime.vim.git
+[submodule ".vim/bundle/vim-multiple-cursors"]
+	path = .vim/bundle/vim-multiple-cursors
+	url = https://github.com/terryma/vim-multiple-cursors.git
