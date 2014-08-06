@@ -48,6 +48,11 @@
 "     > tslime - https://github.com/jgdavey/tslime.vim
 "         Send commands to another tmux session/window/pane
 "
+"     > abolish.vim - https://github.com/tpope/vim-abolish
+"         easily search for, substitute, and abbreviate multiple variants of a
+"         word
+"
+"
 " After Installing Plugind:
 "     try the folowwing to load the help pages:
 "         :helptags ~/.vim/doc
