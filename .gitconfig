@@ -2,10 +2,11 @@
     name = Trevor Little
     email = trevor.little@starfieldtms.com
 [color]
-    diff = auto
-    status = auto
-    branch = auto
-    interactive = auto
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = auto
 [alias]
     l  = log --pretty=format:'%C(red)%h%C(reset) %C(blue)%aN%C(reset): %s %C(bold cyan)%d%Creset' --date-order --graph
     st = status --short
@@ -14,6 +15,20 @@
     hist = log --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s' --date-order
     allhist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s' --date-order
     vim  = grep -Ovim
+	co = checkout
+	br = branch
+	sta = stash
+	llog = log --date=local
+	flog = log --pretty=fuller --decorate
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lol = log --graph --decorate --oneline
+	lola = log --graph --decorate --oneline --all
+	blog = log origin/master... --left-right
+	ds = diff --staged
+	fixup = commit --fixup
+	squash = commit --squash
+	unstage = reset HEAD
+	rum = rebase master@{u}
 
 [merge]
     tool = threesome
@@ -30,3 +45,12 @@
 
 [push]
 	default = simple
+[core]
+	excludesfile = /Users/trevorlittle/.gitignore_global
+	pager = less -FXRS -x2
+[apply]
+	whitespace = nowarn
+[branch]
+	autosetupmerge = true
+[rebase]
+	autosquash = true

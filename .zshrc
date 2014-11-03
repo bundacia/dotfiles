@@ -5,6 +5,14 @@ SAVEHIST=1000
 PAGER='less'
 EDITOR=$(which vim)
 
+# Tuning for Ruby 2.1.2
+RUBY_GC_HEAP_INIT_SLOTS=600000
+RUBY_GC_HEAP_FREE_SLOTS=600000
+RUBY_GC_HEAP_GROWTH_FACTOR=1.25
+RUBY_GC_HEAP_GROWTH_MAX_SLOTS=300000
+RUBY_GC_MALLOC_LIMIT=64000000
+RUBY_GC_OLDMALLOC_LIMIT=64000000
+
 # Turn on autocompletion
 autoload -U compinit   && compinit
 autoload -U promptinit && promptinit
@@ -74,30 +82,7 @@ parse_git() {
 }
 
 precmd () {
-    RPROMPT="$(parse_git) - $(current_vpn)"
-}
-
-switch_to_vpn(){
-    if [[ $os == 'osx' ]]; then
-        openvpnstart="/Applications/Tunnelblick.app/Contents/Resources/openvpnstart"
-        $openvpnstart killall; $openvpnstart start $1.tblk 0 0 0 1 &> /dev/null
-    else
-        sudo service openvpn stop
-        sudo service openvpn start $1
-    fi
-}
-
-current_vpn(){
-    if [[ $os == 'osx' ]]; then
-        pgrep openvpn|\
-            xargs ps |\
-            tail -n1 |\
-            sed -n "s/.*tlittle-\([a-zA-Z]*\)\.tblk.*/\1/p"
-    else
-        service openvpn status |\
-            grep 'is running'  |\
-            sed -n "s/.*'tlittle-\([a-zA-Z]*\)'.*/\1/p"
-    fi
+    RPROMPT="$(parse_git)"
 }
 
 # show full history, with optional grep filter
@@ -160,9 +145,15 @@ if [[ -a ~/.alias ]]; then
     source ~/.alias
 fi
 
+if [[ -a ~/.zsh_private ]]; then
+    source ~/.zsh_private
+fi
+
 if [[ -a /etc/zsh_command_not_found ]]; then
     source /etc/zsh_command_not_found
 fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
