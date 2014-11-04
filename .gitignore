@@ -18,12 +18,14 @@
 !.bashrc
 !.zshrc
 !.zshenv
+!.alias
 !.gitconfig
 !.vimrc
 !.screenrc*
 !.tmux.conf
 !.gitignore
 !.gitmodules
+!.irbrc
 
 # But DO ignore the netrwhist since it will keep changing
 .vim/.netrwhist

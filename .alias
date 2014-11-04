@@ -1,0 +1,8 @@
+alias so='source ~/.zshrc'
+alias st='git status'
+alias di='git diff'
+alias fs='bundle exec foreman start'
+alias rc='bundle exec rails console'
+
+# LS
+alias install_myqa='gem install myqa -s https://gems.livingsocial.net'
