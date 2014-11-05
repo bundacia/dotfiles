@@ -265,18 +265,22 @@ autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <silent> <leader>T :cal
 autocmd User Rails/app/assets/javascripts/*/*.js,Rails/app/assets/javascripts/*.js let b:rails_alternate = substitute(substitute(rails#buffer().path(), 'app/assets', 'spec', ''), '\.js', '_spec.js', '')
 autocmd User Rails/spec/javascripts/*/*.js,Rails/spec/javascripts/*.js let b:rails_alternate = substitute(substitute(rails#buffer().path(), 'spec/javascripts', 'app/assets/javascripts', ''), '_spec\.js', '.js', '')
 
-function! GetTestCommand()
+function! GetTestCommand(...)
+    let args = expand('%') . (a:0 == 1 ? ':'.line('.') : '')
     if expand('%:r') =~ '_spec$'
-        return 'bundle exec rspec'
+        return 'bundle exec rspec ' . args
     elseif expand('%') =~ '\.feature$'
-        return 'bundle exec cucumber'
+        return 'bundle exec cucumber ' . args
+    elseif expand('%') =~ '_test\.rb$'
+        echo 'here'
+        return 'bundle exec rake TEST=' . expand('%')
     else
         return '0'
     endif
 endfunction
 
 function! RunTestCommand(...)
-    let cmd = GetTestCommand()
+    let cmd = GetTestCommand(a:0)
 
     " if there's a command update the test command register (t)
     if cmd != '0'
@@ -297,7 +301,7 @@ function! RunTestCommandInTmux(...)
 
     " if there's a command update the test command register (t)
     if cmd != '0'
-        let @t = "call SendToTmux('cd " . getcwd() . "; clear;date;" . cmd . ' ' . expand('%') . (a:0 == 1 ? ':'.line('.') : '') . "')"
+        let @t = "call SendToTmux('cd " . getcwd() . "; clear;date;" . cmd . "')"
     endif
 
     " if the test command register isn't empty, excecute it.
