@@ -19,3 +19,12 @@
 [submodule ".vim/bundle/vim-abolish"]
 	path = .vim/bundle/vim-abolish
 	url = git://github.com/tpope/vim-abolish.git
+[submodule ".vim/bundle/vim-rabl"]
+	path = .vim/bundle/vim-rabl
+	url = https://github.com/yaymukund/vim-rabl.git
+[submodule ".vim/bundle/vim-clojure-static"]
+	path = .vim/bundle/vim-clojure-static
+	url = https://github.com/guns/vim-clojure-static.git
+[submodule ".vim/bundle/vim-fireplace"]
+	path = .vim/bundle/vim-fireplace
+	url = https://github.com/tpope/vim-fireplace.git
