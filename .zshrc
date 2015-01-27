@@ -99,15 +99,30 @@ stop-ssh-agent() {
 }
 
 git-branch-diff() {
-    git diff $(git merge-base ${1:-HEAD} ${2:-develop}) ${1:-HEAD}
+    git diff $(git merge-base ${1:-HEAD} ${2:-master}) ${1:-HEAD}
 }
 
 git-branch-difftool() {
-    git difftool $(git merge-base ${1:-HEAD} ${2:-develop}) ${1:-HEAD}
+    git difftool $(git merge-base ${1:-HEAD} ${2:-master}) ${1:-HEAD}
 }
 
 push_branch() {
-    git push -u origin NEXT-$1:NEXT-$1
+    git push -u origin $1
+}
+
+add_fork() {
+    # Abort if the "fork" remote already exists
+    git remote|grep -q fork && echo "'fork' remote already exists" && return
+
+    ORIGIN_OWNER=`git remote -v|grep origin|head -n1|cut -d':' -f2|cut -d' ' -f1|cut -d/ -f1`
+    ORIGIN_REPO=`git remote -v|grep origin|head -n1|cut -d':' -f2|cut -d' ' -f1|cut -d/ -f2|cut -d'.' -f1`
+
+    API_ROOT=http://code.livingsocial.net/api/v3/repos
+
+    curl -X POST $API_ROOT/$ORIGIN_OWNER/$ORIGIN_REPO/forks -u 'tlittle:REMOVED'
+
+    FORK_REMOTE="git@code.livingsocial.net:tlittle/$ORIGIN_REPO"
+    git remote add fork $FORK_REMOTE
 }
 
 PROMPT="%{$fg_bold[magenta]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%20<..<%~ %{$reset_color%}%{$fg[blue]%}%#%{$reset_color%} "

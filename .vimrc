@@ -52,6 +52,14 @@
 "         easily search for, substitute, and abbreviate multiple variants of a
 "         word
 "
+"     > vim-clojure-static - https://github.com/guns/vim-clojure-static.git
+"
+"     > fireplace.vim - https://github.com/tpope/vim-fireplace.git
+"         repl for clojure
+"
+"     > paredit.vim - https://github.com/vim-scripts/paredit.vim.git
+"         balanced parenthasis help for lisps
+"
 "
 " After Installing Plugind:
 "     try the folowwing to load the help pages:
@@ -245,21 +253,26 @@ endfunction
 map <leader>u :call Underscore()<CR>
 
 """"""""""""""""""""""
+" => Clojure editing
+""""""""""""""""""""""
+autocmd FileType clojure nmap <silent> <leader>t :RunTests<CR>
+
+""""""""""""""""""""""
 " => Ruby editing
 """"""""""""""""""""""
 " 2-space tabs for ruby files (and js)
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,javascript set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder,javascript set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 " Swap strings and symbols
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>' xysw'
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>: ds'i:
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>' xysw'
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>: ds'i:
 " Swap `:key => value` for `key: value` and back
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>H i:f:xi =>F:
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <leader>h xf r:ldf>F l
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>H i:f:xi =>F:
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>h xf r:ldf>F l
 " Run tests
-" autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <silent> <leader>t :call RunTestCommand(line('.'))<CR>
-" autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <silent> <leader>T :call RunTestCommand()<CR>
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <silent> <leader>t :call RunTestCommandInTmux(line('.'))<CR>
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber nmap <silent> <leader>T :call RunTestCommandInTmux()<CR>
+" autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>t :call RunTestCommand(line('.'))<CR>
+" autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>T :call RunTestCommand()<CR>
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>t :call RunTestCommandInTmux(line('.'))<CR>
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>T :call RunTestCommandInTmux()<CR>
 
 " Get :A to work for javascript files (from https://github.com/tpope/vim-rails/issues/142)
 autocmd User Rails/app/assets/javascripts/*/*.js,Rails/app/assets/javascripts/*.js let b:rails_alternate = substitute(substitute(rails#buffer().path(), 'app/assets', 'spec', ''), '\.js', '_spec.js', '')
@@ -272,7 +285,6 @@ function! GetTestCommand(...)
     elseif expand('%') =~ '\.feature$'
         return 'bundle exec cucumber ' . args
     elseif expand('%') =~ '_test\.rb$'
-        echo 'here'
         return 'bundle exec rake TEST=' . expand('%')
     else
         return '0'

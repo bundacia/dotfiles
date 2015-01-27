@@ -1,6 +1,6 @@
 [user]
     name = Trevor Little
-    email = trevor.little@starfieldtms.com
+    email = trevor.little@livingsocial.com
 [color]
 	diff = auto
 	status = auto
@@ -46,7 +46,7 @@
 [push]
 	default = simple
 [core]
-	excludesfile = /Users/trevorlittle/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	pager = less -FXRS -x2
 [apply]
 	whitespace = nowarn
