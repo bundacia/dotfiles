@@ -2,6 +2,7 @@ alias so='source ~/.zshrc'
 alias realias='$EDITOR ~/.alias; so'
 
 alias git-scrub='git branch --merged master | grep -v master | xargs git branch -d'
+alias gc='git checkout'
 alias st='git status'
 alias di='git diff'
 alias be='bundle exec'
@@ -11,6 +12,7 @@ alias rc='bundle exec rails console'
 alias pp_json='python -m json.tool'
 
 alias todo='vi ~/notes/TODO'
+alias notes='vi ~/notes/notes.txt'
 
 # LS
 alias install_myqa='gem install myqa -s https://gems.livingsocial.net'

@@ -256,6 +256,7 @@ map <leader>u :call Underscore()<CR>
 " => Clojure editing
 """"""""""""""""""""""
 autocmd FileType clojure nmap <silent> <leader>t :RunTests<CR>
+" let g:paredit_shortmaps = 1
 
 """"""""""""""""""""""
 " => Ruby editing
