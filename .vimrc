@@ -60,6 +60,8 @@
 "     > paredit.vim - https://github.com/vim-scripts/paredit.vim.git
 "         balanced parenthasis help for lisps
 "
+"     > command-t - https://github.com/wincent/Command-T
+"         TextMate-like file find/open 
 "
 " After Installing Plugind:
 "     try the folowwing to load the help pages:
@@ -167,6 +169,12 @@ setglobal t_Co=256 " my term can do 256 colors
 
 filetype plugin on
 filetype indent on
+
+""""""""""""""""""""""
+" command-t shortcuts
+""""""""""""""""""""""
+nnoremap <silent> t :CommandT<CR>
+nnoremap <silent> b :CommandTBuffer<CR>
 
 """"""""""""""""""""""
 " => Coloring
