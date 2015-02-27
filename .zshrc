@@ -110,19 +110,45 @@ push_branch() {
     git push -u origin $1
 }
 
+git_origin_owner() {
+    git remote -v|grep origin|head -n1|cut -d':' -f2|cut -d' ' -f1|cut -d/ -f1
+}
+
+git_origin_repo(){
+    git remote -v|grep origin|head -n1|cut -d':' -f2|cut -d' ' -f1|cut -d/ -f2|cut -d'.' -f1
+}
+
+export API_ROOT=http://code.livingsocial.net/api/v3/repos
+
 add_fork() {
     # Abort if the "fork" remote already exists
     git remote|grep -q fork && echo "'fork' remote already exists" && return
 
-    ORIGIN_OWNER=`git remote -v|grep origin|head -n1|cut -d':' -f2|cut -d' ' -f1|cut -d/ -f1`
-    ORIGIN_REPO=`git remote -v|grep origin|head -n1|cut -d':' -f2|cut -d' ' -f1|cut -d/ -f2|cut -d'.' -f1`
-
-    API_ROOT=http://code.livingsocial.net/api/v3/repos
-
-    curl -X POST $API_ROOT/$ORIGIN_OWNER/$ORIGIN_REPO/forks -u 'tlittle:REMOVED'
+    curl -X POST "$API_ROOT/$(git_origin_owner)/$(git_origin_repo)/forks" -u "$GHE_API_TOKEN:x-oauth-basic"
 
     FORK_REMOTE="git@code.livingsocial.net:tlittle/$ORIGIN_REPO"
     git remote add fork $FORK_REMOTE
+}
+
+parse_pr_json() {
+    egrep '"title"|"number"' |\
+    cut -d: -f2              |\
+    perl -0 -e '$_ = <>; s/(\d+),\n\s+"(.*)",/PR $1: $2/g; print'
+}
+
+prs() {
+    curl -s "$API_ROOT/$(git_origin_owner)/$(git_origin_repo)/pulls?state=open" -u "$GHE_API_TOKEN:x-oauth-basic" |parse_pr_json
+}
+
+make_ramdisk() {
+    size_in_mb=${1:=100} # default to 100MB
+    size_in_sectors=$(( $size_in_mb * 2048 ))
+    export RAMDISK_DEVICE=`hdiutil attach -nomount ram://$size_in_sectors`
+    diskutil erasevolume HFS+ 'RAM Disk' $RAMDISK_DEVICE
+}
+
+detach_ramdisk() {
+    hdiutil detach $RAMDISK_DEVICE
 }
 
 PROMPT="%{$fg_bold[magenta]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%20<..<%~ %{$reset_color%}%{$fg[blue]%}%#%{$reset_color%} "
