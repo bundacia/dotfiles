@@ -8,27 +8,12 @@
 	interactive = auto
 	ui = auto
 [alias]
-    l  = log --pretty=format:'%C(red)%h%C(reset) %C(blue)%aN%C(reset): %s %C(bold cyan)%d%Creset' --date-order --graph
     st = status --short
     ci = commit -va
     di = diff
     hist = log --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s' --date-order
-    allhist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s' --date-order
-    vim  = grep -Ovim
-	co = checkout
-	br = branch
-	sta = stash
-	llog = log --date=local
-	flog = log --pretty=fuller --decorate
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-	lol = log --graph --decorate --oneline
-	lola = log --graph --decorate --oneline --all
-	blog = log origin/master... --left-right
-	ds = diff --staged
-	fixup = commit --fixup
-	squash = commit --squash
-	unstage = reset HEAD
-	rum = rebase master@{u}
+    rum = rebase master@{u}
+    pr = "!f() { git fetch origin pull/$1/head:pr-$1 && git checkout pr-$1; }; f"
 
 [merge]
     tool = threesome

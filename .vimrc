@@ -171,10 +171,12 @@ filetype plugin on
 filetype indent on
 
 """"""""""""""""""""""
-" command-t shortcuts
+" Command-T Shortcuts
 """"""""""""""""""""""
 nnoremap <silent> t :CommandT<CR>
 nnoremap <silent> b :CommandTBuffer<CR>
+" show best match at the bottom
+let g:CommandTMatchWindowReverse = 1
 
 """"""""""""""""""""""
 " => Coloring
