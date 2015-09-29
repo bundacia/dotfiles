@@ -13,6 +13,10 @@ RUBY_GC_HEAP_GROWTH_MAX_SLOTS=300000
 RUBY_GC_MALLOC_LIMIT=64000000
 RUBY_GC_OLDMALLOC_LIMIT=64000000
 
+BOOT_2_DOCKER_IP=`boot2docker status|grep -q running && boot2docker ip`
+KAFKA_BROKERS=$BOOT_2_DOCKER_IP":9092"
+ZOOKEEPER_SERVERS=$BOOT_2_DOCKER_IP":2181"
+
 # Turn on autocompletion
 autoload -U compinit   && compinit
 autoload -U promptinit && promptinit
@@ -106,6 +110,10 @@ git-branch-difftool() {
     git difftool $(git merge-base ${1:-HEAD} ${2:-master}) ${1:-HEAD}
 }
 
+git-branch-st() {
+    git diff --name-only $(git merge-base ${1:-HEAD} ${2:-master}) ${1:-HEAD}
+}
+
 push_branch() {
     git push -u origin $1
 }
@@ -126,7 +134,7 @@ add_fork() {
 
     curl -X POST "$API_ROOT/$(git_origin_owner)/$(git_origin_repo)/forks" -u "$GHE_API_TOKEN:x-oauth-basic"
 
-    FORK_REMOTE="git@code.livingsocial.net:tlittle/$ORIGIN_REPO"
+    FORK_REMOTE="git@code.livingsocial.net:tlittle/$(git_origin_repo)"
     git remote add fork $FORK_REMOTE
 }
 
@@ -151,6 +159,10 @@ detach_ramdisk() {
     hdiutil detach $RAMDISK_DEVICE
 }
 
+ls-tmux() {
+    tmux new-session -s ls -c ~/work
+}
+
 PROMPT="%{$fg_bold[magenta]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%20<..<%~ %{$reset_color%}%{$fg[blue]%}%#%{$reset_color%} "
 
 bindkey -e # Use emacs mode
@@ -158,6 +170,7 @@ bindkey -e # Use emacs mode
 setopt append_history hist_ignore_dups hist_ignore_space hist_no_store hist_verify
 setopt correct # correct misspelled commands
 setopt nullglob
+setopt interactivecomments # allow comments on the command line
 
 # tab completion for PID :D
 zstyle ':completion:*:*:kill:*' menu yes select
@@ -177,6 +190,9 @@ PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/my
 
 # add bin from homedir
 PATH=$HOME/bin:$PATH
+
+# LivingSocial
+DEALS_HIDE_AB_WARNING=1
 
 unsetopt ALL_EXPORT
 

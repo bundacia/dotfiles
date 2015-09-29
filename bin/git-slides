@@ -1,0 +1,252 @@
+#!/bin/bash
+set -e
+
+function usage {
+  echo "usage:"
+  echo "  $0 next [-f|--force]"
+  echo "  $0 prev [-f|--force]"
+  echo "  $0 save [msg]"
+  echo "  $0 insert [msg]"
+  echo "  $0 insert-before [msg]"
+  echo "  $0 delete"
+  echo "  $0 transform"
+  echo ""
+  echo "Move forwards or backwards through the git history."
+  echo "Use --force to do so even if the files have been changed."
+  echo ""
+  echo "To modify a slide, simply move to that slide and edit it."
+  echo "Then use 'save' to commit the state of the slide into git."
+  echo "'insert' is a variant which inserts the slide after the one"
+  echo "it was modified from, while 'delete' removes the current"
+  echo "slide. All commands rewrite the history of all the slides"
+  echo "which come afterwards."
+  echo ""
+  echo "'transform' is a special version of 'save' which tries to"
+  echo "apply the change to all future slides, stopping at the"
+  echo "first conflict."
+}
+
+# "commit 12345" => "12345"
+function cut_commit {
+  cut -d' ' -f2
+}
+
+function current_commit {
+  git log HEAD | head -n1 | cut_commit
+}
+
+function branches {
+  git branch | grep -v '(no branch)' | grep -v '(detached from' | cut -c3-
+}
+
+function current_branch {
+  local CURRENT="$(current_commit)"
+  for BRANCH in `branches`; do
+    if [ "$(git log "$BRANCH" | grep "^commit $CURRENT")" ]; then
+      echo "$BRANCH"
+      break
+    fi
+  done
+}
+
+function commits {
+  git log "$(current_branch)" | grep '^commit'
+}
+
+function current_tip {
+  commits | head -n1 | cut_commit
+}
+
+function next_commit {
+  local CURRENT="$(current_commit)"
+  commits | grep -B1 "^commit $CURRENT" | head -n1 | cut_commit
+}
+
+function prev_commit {
+  local CURRENT="$(current_commit)"
+  commits | grep -A1 "^commit $CURRENT" | tail -n1 | cut_commit
+}
+
+function move_to {
+  if [ "$2" = "-f" ] || [ "$2" = "--force" ]; then
+    git clean -df
+    git reset --hard
+  fi
+  if [ "$1" = "$(current_tip)" ]; then
+    git checkout "$(current_branch)"
+  else
+    git checkout "$1"
+  fi
+}
+
+function next {
+  move_to "$(next_commit)"
+}
+
+function prev {
+  move_to "$(prev_commit)"
+}
+
+function duplicate {
+  local MSG="$1"
+  local BRANCH="$(current_branch)"
+  local CURRENT="$(current_commit)"
+  
+  # duplicate $CURRENT
+  git commit --allow-empty -m "$MSG"
+  local DUP="$(current_commit)"
+  
+  # rewrite history to include $DUP.
+  git rebase "$DUP" "$BRANCH"
+  
+  # move to this new commit (whose SHA1 is no longer $DUP)
+  git checkout -f "$CURRENT"
+  next
+}
+
+function commit_message {
+  local COMMIT="$1"
+  git show -s --format=%B "$COMMIT"
+}
+
+# rewrite history so that the current commit is followed by $FUTURE,
+# then the rest of $BRANCH. $FUTURE must already belong to $BRANCH.
+function rewrite_history {
+  local FUTURE="$1"
+  local BRANCH="$2"
+  
+  # force rebase to succeed by duplicating $FUTURE.
+  local MSG="$(commit_message "$FUTURE")"
+  local TREE="$FUTURE^{tree}"
+  local PARENT="$(current_commit)"
+  local DUP="$(echo "$MSG" | git commit-tree "$TREE" -p "$PARENT")"
+  git checkout "$DUP"
+  
+  # rewrite history to include $DUP instead of $FUTURE.
+  git rebase --onto "$DUP" "$FUTURE" "$BRANCH"
+}
+
+function save {
+  local MSG="$1"
+  local BRANCH="$(current_branch)"
+  local OLD="$(current_commit)"
+  local NEXT="$(next_commit)"
+  if [ "$MSG" ]; then
+    git commit -a --amend --allow-empty -m"$MSG"
+  else
+    git commit -a --amend --allow-empty --reuse-message="$OLD"
+  fi
+  local NEW="$(current_commit)"
+  
+  if [ "$NEXT" != "$OLD" ]; then
+    # rewrite history to include $NEW instead of $OLD.
+    rewrite_history "$NEXT" "$BRANCH"
+    
+    # move to the saved commit.
+    git checkout -f "$NEW"
+  fi
+}
+
+function insert_before {
+  local MSG="$1"
+  local BRANCH="$(current_branch)"
+  local PREV="$(current_commit)"
+  git commit -a --amend --allow-empty -m "$MSG"
+  local NEW="$(current_commit)"
+  
+  # rewrite history to include $NEW.
+  rewrite_history "$PREV" "$BRANCH"
+  
+  # move to the inserted commit.
+  git checkout -f "$NEW"
+}
+
+function insert_after {
+  local MSG="$1"
+  local BRANCH="$(current_branch)"
+  local PREV="$(current_commit)"
+  local NEXT="$(next_commit)"
+  git commit -a --allow-empty -m "$MSG"
+  local NEW="$(current_commit)"
+  
+  if [ "$NEXT" != "$PREV" ]; then
+    # rewrite history to include $NEW.
+    rewrite_history "$NEXT" "$BRANCH"
+    
+    # move to the inserted commit.
+    git checkout -f "$NEW"
+  fi
+}
+
+function delete {
+  if [ "$(current_commit)" = "$(current_tip)" ]; then
+    git reset --hard HEAD^
+  else
+    local BRANCH="$(current_branch)"
+    local PREV="$(prev_commit)"
+    local NEXT="$(next_commit)"
+    
+    # rewrite history to include $PREV and $NEXT, but not the current commit.
+    git checkout -f "$PREV"
+    rewrite_history "$NEXT" "$BRANCH"
+    
+    # move to the commit before the one we deleted.
+    git checkout -f "$PREV"
+  fi
+}
+
+function transform {
+  local BRANCH="$(current_branch)"
+  local OLD="$(current_commit)"
+  git commit -a --amend --allow-empty --reuse-message="$OLD"
+  local NEW="$(current_commit)"
+  
+  # unsafe version of rewrite_history, which will
+  # propagate the changes forward and probably cause conflicts.
+  if ! git rebase --onto "$NEW" "$OLD" "$BRANCH"; then
+    # resolve conflicts by ignoring "our" changes,
+    # thereby stopping their propagation.
+    local DELETED_FILES="$(git status | grep "^#	deleted by them:" | cut -d':' -f2)"
+    local ADDED_FILES="$(git status | grep "^#	added by us:" | cut -d':' -f2)"
+    if [ "$DELETED_FILES" ]; then
+      echo "$DELETED_FILES" | xargs git rm -f
+    fi
+    if [ "$ADDED_FILES" ]; then
+      echo "$ADDED_FILES" | xargs git rm -f
+    fi
+    git checkout --theirs .
+    git add -u
+    local STOP="$(current_commit)"
+    git rebase --continue
+    
+    # move to the last successfully-modified commit.
+    git checkout -f "$STOP"
+  fi
+}
+
+if [ "$1" = "next" ]; then
+  move_to "$(next_commit)" "$2"
+elif [ "$1" = "prev" ]; then
+  move_to "$(prev_commit)" "$2"
+elif [ "$1" = "save" ]; then
+  save "$2"
+elif [ "$1" = "insert" ] || [ "$1" = "insert-after" ]; then
+  if [ "$2" ]; then
+    insert_after "$2"
+  else
+    insert_after "new slide"
+  fi
+elif [ "$1" = "insert-before" ]; then
+  if [ "$2" ]; then
+    insert_before "$2"
+  else
+    insert_before "new slide"
+  fi
+elif [ "$1" = "delete" ]; then
+  delete
+elif [ "$1" = "transform" ]; then
+  transform
+else
+  usage
+  exit 1
+fi

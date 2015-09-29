@@ -63,6 +63,10 @@
 "     > command-t - https://github.com/wincent/Command-T
 "         TextMate-like file find/open 
 "
+"     > vim-markdown - https://github.com/plasticboy/vim-markdown.git
+"
+"     > git-slides - https://github.com/gelisam/git-slides
+"
 " After Installing Plugind:
 "     try the folowwing to load the help pages:
 "         :helptags ~/.vim/doc
@@ -116,8 +120,8 @@ source ~/.vim/snippets/support_functions.vim
 " Make C-a go home in cmd mode like in bash
 cnoremap <C-a>  <Home>
 
-" ,, to unhilight searches
-nmap ,, :nohlsearch<CR>
+" unhilight searches
+nmap ,/ :nohlsearch<CR>
 
 set wildmenu "Turn on WiLd menu
 
@@ -173,8 +177,8 @@ filetype indent on
 """"""""""""""""""""""
 " Command-T Shortcuts
 """"""""""""""""""""""
-nnoremap <silent> t :CommandT<CR>
-nnoremap <silent> b :CommandTBuffer<CR>
+" nnoremap <silent> t :CommandT<CR>
+" nnoremap <silent> b :CommandTBuffer<CR>
 " show best match at the bottom
 let g:CommandTMatchWindowReverse = 1
 
@@ -265,7 +269,7 @@ map <leader>u :call Underscore()<CR>
 """"""""""""""""""""""
 " => Clojure editing
 """"""""""""""""""""""
-autocmd FileType clojure nmap <silent> <leader>t :RunTests<CR>
+autocmd FileType clojure nmap <silent> <leader>, :RunTests<CR>
 " let g:paredit_shortmaps = 1
 
 """"""""""""""""""""""
@@ -280,10 +284,12 @@ autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>: ds'i
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>H i:f:xi =>F:
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>h xf r:ldf>F l
 " Run tests
-" autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>t :call RunTestCommand(line('.'))<CR>
-" autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>T :call RunTestCommand()<CR>
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>t :call RunTestCommandInTmux(line('.'))<CR>
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>T :call RunTestCommandInTmux()<CR>
+" autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>. :call RunTestCommand(line('.'))<CR>
+" autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>, :call RunTestCommand()<CR>
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>. :call RunTestCommandInTmux(line('.'))<CR>
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>, :call RunTestCommandInTmux()<CR>
+" Strip trailing whitespace on save
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " Get :A to work for javascript files (from https://github.com/tpope/vim-rails/issues/142)
 autocmd User Rails/app/assets/javascripts/*/*.js,Rails/app/assets/javascripts/*.js let b:rails_alternate = substitute(substitute(rails#buffer().path(), 'app/assets', 'spec', ''), '\.js', '_spec.js', '')

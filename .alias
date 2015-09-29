@@ -3,19 +3,20 @@ alias realias='$EDITOR ~/.alias; so'
 
 alias git-scrub='git branch --merged master | grep -v master | xargs git branch -d'
 alias gc='git checkout'
+alias gcm='git checkout master'
 alias st='git status'
 alias di='git diff'
+alias gp='git pull'
 alias be='bundle exec'
 alias brake='bundle exec rake'
 alias fs='bundle exec foreman start'
 alias rc='bundle exec rails console'
+alias rs='bundle exec rails server'
 alias pp_json='python -m json.tool'
 
 alias todo='vi ~/notes/TODO'
 alias notes='vi ~/notes/notes.txt'
+alias vimrc='vi ~/.vimrc'
+alias aliases='vi ~/.alias; so'
 
-# LS
-alias install_myqa='gem install myqa -s https://gems.livingsocial.net'
-alias sample_product="curl -s 'http://catalog-service.consumer-shared-services.qa.livingsocial.net:80/offers.json?client_name=a&limit=1&representation=full'|pp_json"
-alias get_product="curl -s 'http://catalog-service.consumer-shared-services.qa.livingsocial.net:80/offers/product-110308.json?client_name=a&limit=1&representation=product_checkout'|pp_json"
-
+alias copy_with_syntax='highlight -O rtf --line-numbers --font-size 24 --font Inconsolata --style solarized-dark -W -J 50 -j 3 --src-lang ruby | pbcopy'
