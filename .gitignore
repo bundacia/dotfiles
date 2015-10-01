@@ -16,6 +16,7 @@
 !.vim/*/*/*/*/*/*
 !.vim/*/*/*/*/*/*/*
 !.bashrc
+!.bach_profile
 !.zshrc
 !.zshenv
 !.alias
