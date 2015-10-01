@@ -283,6 +283,8 @@ autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>: ds'i
 " Swap `:key => value` for `key: value` and back
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>H i:f:xi =>F:
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>h xf r:ldf>F l
+" add jbuilder syntax highlighting
+au BufNewFile,BufRead *.jbuilder set ft=ruby
 " Run tests
 " autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>. :call RunTestCommand(line('.'))<CR>
 " autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>, :call RunTestCommand()<CR>
