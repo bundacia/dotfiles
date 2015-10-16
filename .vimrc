@@ -67,6 +67,9 @@
 "
 "     > git-slides - https://github.com/gelisam/git-slides
 "
+"     > vim-repeat - https://github.com/tpope/vim-repeat
+"         make '.' work for surround.vim & abolish.vim, etc
+"
 " After Installing Plugind:
 "     try the folowwing to load the help pages:
 "         :helptags ~/.vim/doc
@@ -105,7 +108,10 @@ endtry
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => ack
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:ackprg='ack-grep -H --nocolor --nogroup --column'
+" use the silver searcher if available
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => snipmate
