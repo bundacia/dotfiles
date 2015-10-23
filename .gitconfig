@@ -39,3 +39,5 @@
 	autosetupmerge = true
 [rebase]
 	autosquash = true
+[hub]
+	host = code.livingsocial.net
