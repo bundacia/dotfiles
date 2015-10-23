@@ -20,5 +20,6 @@ alias vimrc='vi ~/.vimrc'
 alias aliases='vi ~/.alias; so'
 
 alias ack=ag
+alias gitp=git # can't stop typing `gitp ush` =(
 
 alias copy_with_syntax='highlight -O rtf --line-numbers --font-size 24 --font Inconsolata --style solarized-dark -W -J 50 -j 3 --src-lang ruby | pbcopy'

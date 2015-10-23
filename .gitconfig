@@ -15,6 +15,7 @@
     rum = rebase master@{u}
     pr = "!f() { git fetch origin pull/$1/head:pr-$1 && git checkout pr-$1; }; f"
     pull-request = "!f(){ hub pull-request; }; f"
+    ush = push
 
 [merge]
     tool = threesome
