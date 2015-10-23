@@ -163,6 +163,12 @@ ls-tmux() {
     tmux new-session -s ls -c ~/work
 }
 
+jira-create() {
+    http --pretty=format POST https://$LS_JIRA_AUTH@jira.livingsocial.net/rest/api/2/issue/ \
+        fields:='{ "summary": "'$1'", "description": "", "project": {"key": "CAT"}, "issuetype": {"name": "'${2-Task}'"} }' \
+    | sed -n 's/ *"key": "\(.*\)",/https:\/\/jira.livingsocial.net\/browse\/\1/p'
+}
+
 PROMPT="%{$fg_bold[magenta]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%20<..<%~ %{$reset_color%}%{$fg[blue]%}%#%{$reset_color%} "
 
 bindkey -e # Use emacs mode
