@@ -23,3 +23,5 @@ alias ack=ag
 alias gitp=git # can't stop typing `gitp ush` =(
 
 alias copy_with_syntax='highlight -O rtf --line-numbers --font-size 24 --font Inconsolata --style solarized-dark -W -J 50 -j 3 --src-lang ruby | pbcopy'
+
+alias akcurl="curl -s -D - -o /dev/null -m 10  -H 'Pragma: akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-nonces, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no' -I "

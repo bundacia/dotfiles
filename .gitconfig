@@ -16,6 +16,7 @@
     pr = "!f() { git fetch origin pull/$1/head:pr-$1 && git checkout pr-$1; }; f"
     pull-request = "!f(){ hub pull-request; }; f"
     ush = push
+    conflicts = "!f(){ vi $(git diff --name-only --diff-filter=U) '+/<<<'; }; f"
 
 [merge]
     tool = threesome
