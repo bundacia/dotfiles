@@ -70,6 +70,9 @@
 "     > vim-repeat - https://github.com/tpope/vim-repeat
 "         make '.' work for surround.vim & abolish.vim, etc
 "
+"     > vim-json - https://github.com/elzr/vim-json
+"         json syntax hi-lighting and error warnings
+"
 " After Installing Plugind:
 "     try the folowwing to load the help pages:
 "         :helptags ~/.vim/doc
