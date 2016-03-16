@@ -91,7 +91,6 @@
 call pathogen#infect()
 "call pathogen#runtime_append_all_bundles()
 
-
 """"""""""""""""""""""
 " => Set the leaders
 """"""""""""""""""""""
@@ -283,7 +282,8 @@ map <leader>u :call Underscore()<CR>
 """"""""""""""""""""""
 " => Clojure editing
 """"""""""""""""""""""
-autocmd FileType clojure nmap <silent> <leader>, :RunTests<CR>
+autocmd FileType clojure nmap <silent> <leader>, :w<CR>:Require<CR>:Eval (run-tests *ns*)<CR>
+autocmd FileType clojure autocmd BufWritePre <buffer> :%s/\s\+$//e
 " let g:paredit_shortmaps = 1
 
 """"""""""""""""""""""

@@ -194,6 +194,8 @@ bindkey '^Xe' edit-command-line
 # look in /usr/local first (macports, anything manually compiled)
 PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$PATH
 
+PATH=/usr/local/Cellar/mysql55/5.5.44/bin:$PATH
+
 # add bin from homedir
 PATH=$HOME/bin:$PATH
 
