@@ -33,7 +33,7 @@
 	url = https://github.com/vim-scripts/paredit.vim.git
 [submodule ".vim/bundle/command-t"]
 	path = .vim/bundle/command-t
-	url = git://git.wincent.com/command-t.git
+	url = https://github.com/wincent/command-t.git
 [submodule ".vim/bundle/vim-markdown"]
 	path = .vim/bundle/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown.git
