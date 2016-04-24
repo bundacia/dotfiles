@@ -46,3 +46,6 @@
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/bundle/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule ".vim/bundle/floobits-neovim"]
+	path = .vim/bundle/floobits-neovim
+	url = https://github.com/Floobits/floobits-neovim.git
