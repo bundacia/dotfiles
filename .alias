@@ -1,7 +1,6 @@
 alias so='source ~/.zshrc'
 alias realias='$EDITOR ~/.alias; so'
 
-alias vi=/usr/local/bin/vim
 alias git-scrub='git branch --merged master | grep -v master | xargs git branch -d'
 alias gc='git checkout'
 alias gcm='git checkout master'

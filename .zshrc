@@ -5,18 +5,6 @@ SAVEHIST=1000
 PAGER='less'
 EDITOR=$(which vim)
 
-# Tuning for Ruby 2.1.2
-RUBY_GC_HEAP_INIT_SLOTS=600000
-RUBY_GC_HEAP_FREE_SLOTS=600000
-RUBY_GC_HEAP_GROWTH_FACTOR=1.25
-RUBY_GC_HEAP_GROWTH_MAX_SLOTS=300000
-RUBY_GC_MALLOC_LIMIT=64000000
-RUBY_GC_OLDMALLOC_LIMIT=64000000
-
-BOOT_2_DOCKER_IP=`boot2docker status|grep -q running && boot2docker ip`
-KAFKA_BROKERS=$BOOT_2_DOCKER_IP":9092"
-ZOOKEEPER_SERVERS=$BOOT_2_DOCKER_IP":2181"
-
 # Turn on autocompletion
 autoload -U compinit   && compinit
 autoload -U promptinit && promptinit
@@ -24,6 +12,7 @@ autoload -U colors     && colors
 
 os='unknown'
 unamestr=`uname`
+
 if [[ "$unamestr" == 'Linux' ]]; then
     os='linux'
 elif [[ "$unamestr" == 'Darwin' ]]; then
