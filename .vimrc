@@ -60,9 +60,6 @@
 "     > paredit.vim - https://github.com/vim-scripts/paredit.vim.git
 "         balanced parenthasis help for lisps
 "
-"     > command-t - https://github.com/wincent/Command-T
-"         TextMate-like file find/open 
-"
 "     > vim-markdown - https://github.com/plasticboy/vim-markdown.git
 "
 "     > git-slides - https://github.com/gelisam/git-slides
@@ -73,7 +70,10 @@
 "     > vim-json - https://github.com/elzr/vim-json
 "         json syntax hi-lighting and error warnings
 "
-" After Installing Plugind:
+"     > ctrl-p - https://github.com/ctrlpvim/ctrlp.vim
+"         Fuzzy file finder
+"
+" After Installing Plugins:
 "     try the folowwing to load the help pages:
 "         :helptags ~/.vim/doc
 "
@@ -186,14 +186,6 @@ setglobal t_Co=256 " my term can do 256 colors
 
 filetype plugin on
 filetype indent on
-
-""""""""""""""""""""""
-" Command-T Shortcuts
-""""""""""""""""""""""
-" nnoremap <silent> t :CommandT<CR>
-" nnoremap <silent> b :CommandTBuffer<CR>
-" show best match at the bottom
-let g:CommandTMatchWindowReverse = 1
 
 """"""""""""""""""""""
 " => Coloring
