@@ -350,26 +350,6 @@ function! RunTestCommandInTmux(...)
 
 endfunction
 
-""""""""""""""""""""""
-" => Perl editing
-""""""""""""""""""""""
-"use desert for perl
-"autocmd FileType perl colorscheme desert
-" and tweak pod highlighting
-autocmd FileType perl hi link podCommand      Comment
-autocmd FileType perl hi link podCmdText      Character
-autocmd FileType perl hi link podOverIndent   Number
-autocmd FileType perl hi link podForKeywd     Tag
-autocmd FileType perl hi link podFormat       Tag
-autocmd FileType perl hi link podVerbatimLine Structure
-autocmd FileType perl hi link podSpecial      Tag
-autocmd FileType perl hi link podEscape       String
-autocmd FileType perl hi link podEscape2      Number
-
-nmap <C-D>  iuse Data::Dumper 'Dumper'; warn Dumper [];#DEBUG#8hi
-
-let perl_include_pod = 1
-let perl_extended_vars = 1
 
 """"""""""""""""""""""
 " => RELOAD
