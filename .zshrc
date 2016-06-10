@@ -193,6 +193,9 @@ DEALS_HIDE_AB_WARNING=1
 
 unsetopt ALL_EXPORT
 
+# Node Setup
+export NODE_ENV=development
+
 # hub: https://hub.github.com/
 export GITHUB_HOST=code.livingsocial.net
 export GITHUB_USER=tlittle
