@@ -129,6 +129,8 @@ let g:vim_markdown_folding_disabled=1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" turn off mouse
+set mouse=
 
 " Make C-a go home in cmd mode like in bash
 cnoremap <C-a>  <Home>
@@ -297,7 +299,7 @@ au BufNewFile,BufRead *.jbuilder set ft=ruby
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>. :call RunTestCommandInTmux(line('.'))<CR>
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>, :call RunTestCommandInTmux()<CR>
 " Strip trailing whitespace on save
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder,javascript autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " Get :A to work for javascript files (from https://github.com/tpope/vim-rails/issues/142)
 autocmd User Rails/app/assets/javascripts/*/*.js,Rails/app/assets/javascripts/*.js let b:rails_alternate = substitute(substitute(rails#buffer().path(), 'app/assets', 'spec', ''), '\.js', '_spec.js', '')

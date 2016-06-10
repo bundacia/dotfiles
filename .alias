@@ -1,6 +1,7 @@
 alias so='source ~/.zshrc'
 alias realias='$EDITOR ~/.alias; so'
 
+alias vi=nvim
 alias git-scrub='git branch --merged master | grep -v master | xargs git branch -d'
 alias gc='git checkout'
 alias gcm='git checkout master'
@@ -25,3 +26,6 @@ alias gitp=git # can't stop typing `gitp ush` =(
 alias copy_with_syntax='highlight -O rtf --line-numbers --font-size 24 --font Inconsolata --style solarized-dark -W -J 50 -j 3 --src-lang ruby | pbcopy'
 
 alias akcurl="curl -s -D - -o /dev/null -m 10  -H 'Pragma: akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-nonces, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no' -I "
+
+alias rethinkdb.start='launchctl load /usr/local/opt/rethinkdb/homebrew.mxcl.rethinkdb.plist'
+alias rethinkdb.stop='launchctl unload /usr/local/opt/rethinkdb/homebrew.mxcl.rethinkdb.plist'

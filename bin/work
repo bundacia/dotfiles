@@ -1,0 +1,32 @@
+#!/bin/zsh
+
+SESSION=lg
+SESSION_EXISTS=`tmux list-sessions|cut -d: -f1|grep $SESSION`
+
+if [[ -z $SESSION_EXISTS ]]; then
+
+    cd ~/lg
+
+    tmux new-session -d -s $SESSION
+
+    tmux new-window -n 'meh'
+    tmux send-keys "mehserve run" C-m
+
+    for app in 'idm' 'game' 'graphiql'; do
+        tmux new-window -n $app
+        tmux send-keys "cd ~/lg/$app; npm start" C-m
+    done
+
+    tmux new-window -n 'game-workers'
+    tmux send-keys "cd ~/lg/game; npm run workers" C-m
+
+    tmux new-window -n 'chat'
+    tmux send-keys "cd ~/lg/Rocket.Chat; ./learners-guild/start.sh" C-m
+
+    tmux select-window -t $SESSION:1
+    tmux send-keys "cowsay 'Welcome to Your Tmux Session!!'" C-m
+
+fi
+
+tmux -2 attach-session -t $SESSION:1
+
