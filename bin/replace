@@ -1,0 +1,1 @@
+find -E server common client  -regex '.*.jsx?' -exec sed -e 's/NON_NEGATIVE_INT/NUMERIC/g' -i '' {} \;

@@ -112,7 +112,11 @@ endtry
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use the silver searcher if available
 if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -296,6 +300,8 @@ au BufNewFile,BufRead *.jbuilder set ft=ruby
 " Run tests
 " autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>. :call RunTestCommand(line('.'))<CR>
 " autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>, :call RunTestCommand()<CR>
+autocmd FileType javascript nmap <silent> <leader>. :call RunJSTestCommandInTmux(line('.'))<CR>
+autocmd FileType javascript nmap <silent> <leader>, :call RunJSTestCommandInTmux()<CR>
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>. :call RunTestCommandInTmux(line('.'))<CR>
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>, :call RunTestCommandInTmux()<CR>
 " Strip trailing whitespace on save
@@ -341,6 +347,32 @@ function! RunTestCommandInTmux(...)
     " if there's a command update the test command register (t)
     if cmd != '0'
         let @t = "call SendToTmux('cd " . getcwd() . "; clear;date;" . cmd . "')"
+    endif
+
+    " if the test command register isn't empty, excecute it.
+    if strlen(@t) > 0
+        execute @t
+    elseif
+        echoerr "No test command to run"
+    end
+
+endfunction
+
+function! GetJSTestCommand(...)
+    let args = expand('%') . (a:0 == 1 ? ':'.line('.') : '')
+    if expand('%') =~ '\.test\.js'
+        return 'NODE_ENV=test ./node_modules/.bin/mocha '. expand('%') . ' --watch'
+    else
+        return '0'
+    endif
+endfunction
+
+function! RunJSTestCommandInTmux(...)
+    let cmd = GetJSTestCommand()
+
+    " if there's a command update the test command register (t)
+    if cmd != '0'
+        let @t = "call SendToTmux('cd " . getcwd() . "; clear;date;" . cmd . "')"
     endif
 
     " if the test command register isn't empty, excecute it.

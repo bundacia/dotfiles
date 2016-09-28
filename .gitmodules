@@ -13,9 +13,6 @@
 [submodule ".vim/plugin/tslime.vim"]
 	path = .vim/plugin/tslime.vim
 	url = https://github.com/jgdavey/tslime.vim.git
-[submodule ".vim/bundle/vim-multiple-cursors"]
-	path = .vim/bundle/vim-multiple-cursors
-	url = https://github.com/terryma/vim-multiple-cursors.git
 [submodule ".vim/bundle/vim-abolish"]
 	path = .vim/bundle/vim-abolish
 	url = git://github.com/tpope/vim-abolish.git
@@ -46,6 +43,3 @@
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/bundle/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
-[submodule ".vim/bundle/floobits-neovim"]
-	path = .vim/bundle/floobits-neovim
-	url = https://github.com/Floobits/floobits-neovim.git
