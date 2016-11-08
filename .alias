@@ -20,6 +20,8 @@ alias notes='vi ~/notes/notes.txt'
 alias vimrc='vi ~/.vimrc'
 alias aliases='vi ~/.alias; so'
 
+alias uuid="uuidgen | tr -d '\n' | tr '[:upper:]' '[:lower:]'  | pbcopy && pbpaste && echo"
+
 alias ack=ag
 alias gitp=git # can't stop typing `gitp ush` =(
 
