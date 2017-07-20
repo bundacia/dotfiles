@@ -19,9 +19,11 @@ if [[ -z $SESSION_EXISTS ]]; then
 
     tmux new-window -n 'game-workers'
     tmux send-keys "cd ~/lg/game; npm run workers" C-m
+    tmux split-window zsh
+    tmux send-keys "cd ~/lg/game; npm run workers:cycleLaunched" C-m
 
     tmux new-window -n 'echo'
-    tmux send-keys "cd ~/lg/echo-chat; npm start" C-m
+    tmux send-keys "cd ~/lg/echo-chat; npm run lg:start" C-m
 
     tmux select-window -t $SESSION:1
     tmux send-keys "cowsay 'Welcome to Your Tmux Session!!'" C-m

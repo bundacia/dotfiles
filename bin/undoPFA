@@ -1,0 +1,41 @@
+#! /bin/bash
+cd ~/lg/game;
+./node_modules/.bin/babel-node -e '
+  var r = require("./server/services/dataService").r
+  var db = r.db("game_development")
+
+  function undoPFA() {
+    return db.table("cycles")
+      .filter({
+        chapterId: r.db("game_development").table("chapters").filter({name: "Oakland"})(0)("id")
+      })
+      .orderBy(r.desc("cycleNumber"))
+      .nth(0)
+      .do(cycle => r.expr([
+        db.table("projects").filter({cycleId: cycle("id")}).delete(),
+        db.table("cycles").get(cycle("id")).update({state: "GOAL_SELECTION"})
+      ]))
+  }
+
+  function printResults(results) {
+    const deletedProjectCount = results[0].deleted
+    const cycleChanged = results[1].replaced
+    if (deletedProjectCount) {
+      console.log(`Deleted ${deletedProjectCount} projects`)
+    }
+    if (cycleChanged) {
+      console.log("Changed cycle state")
+    } else {
+      console.log("Cycle unchanged")
+    }
+  }
+
+  undoPFA()
+    .then(printResults)
+    .then(() => process.exit(0))
+    .catch(err => {
+      console.log(err.stack)
+      process.exit(1)
+    })
+'
+cd -

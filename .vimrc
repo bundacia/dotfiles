@@ -36,9 +36,6 @@
 "     > ack - http://www.vim.org/scripts/script.php?script_id=2572
 "         arep your working tree with ack from within vim
 "
-"     > GitGutter - https://github.com/airblade/vim-gitgutter
-"         Show modified/added/deleted lines in sign column
-"
 "     > commentary - https://github.com/tpope/vim-commentary
 "         Comment shortcuts for different file types
 "
@@ -187,6 +184,10 @@ set modeline " respect modelines
 
 set ofu=syntaxcomplete#Complete
 
+" place tmp files (swp,swo,...) in a tmp dir in home, not next to the edited
+" files
+set dir=~/tmp
+
 " ---- syntax highlighting --- "
 syn on
 setglobal t_Co=256 " my term can do 256 colors
@@ -200,18 +201,6 @@ filetype indent on
 " using solorized from http://ethanschoonover.com/solarized
 set background=dark
 colorscheme solarized
-
-""""""""""""""""""""""
-" GitGutter
-""""""""""""""""""""""
-" clear signcolumn so that gitgutter will use the LineNr color
-highlight SignColumn ctermbg=0
-highlight GitGutterAdd          ctermfg=2           ctermbg=0 " an added line
-highlight GitGutterChange       ctermfg=brown       ctermbg=0 " a changed line
-highlight GitGutterDelete       ctermfg=darkred     ctermbg=0 " at least one removed line
-highlight GitGutterChangeDelete ctermfg=lightyellow ctermbg=0 " a changed line followed by at least one removed line
-" Only update when reading or writing a file
-let g:gitgutter_eager = 0
 
 """"""""""""""""""""""
 " => Whitespace

@@ -1,0 +1,29 @@
+#! /Users/trevor/.nvm/versions/node/v6.11.1/bin/node
+const fs = require('fs')
+
+const filename = process.argv[2]
+const adjustmentStr = process.argv[3]
+const adjustment = adjustmentStr ? Number.parseInt(adjustmentStr) : 0
+
+const lines = fs.readFileSync(filename, 'utf8').split('\n')
+
+const specRegex = /^- \[( |x)\] __(\d+)/i
+
+let total = 0
+let earned = adjustment
+lines.forEach(line => {
+  const matchData = line.match(specRegex)
+  if (!matchData) {
+    return
+  }
+
+  const checked = matchData[1] !== ' '
+  const value = Number.parseInt(matchData[2])
+  total += value
+
+  if (checked) {
+    earned += value
+  }
+})
+
+console.log('Score:', 100 * (earned / total))

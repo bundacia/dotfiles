@@ -8,11 +8,6 @@ alias gcm='git checkout master'
 alias st='git status'
 alias di='git diff'
 alias gp='git pull'
-alias be='bundle exec'
-alias brake='bundle exec rake'
-alias fs='bundle exec foreman start'
-alias rc='bundle exec rails console'
-alias rs='bundle exec rails server'
 alias pp_json='python -m json.tool'
 
 alias todo='vi ~/notes/TODO'
@@ -32,4 +27,4 @@ alias akcurl="curl -s -D - -o /dev/null -m 10  -H 'Pragma: akamai-x-cache-on, ak
 alias rethinkdb.start='launchctl load /usr/local/opt/rethinkdb/homebrew.mxcl.rethinkdb.plist'
 alias rethinkdb.stop='launchctl unload /usr/local/opt/rethinkdb/homebrew.mxcl.rethinkdb.plist'
 
-alias reset-data='cd ~/lg/game; npm run data:playtest -- --votes --confirm --users=/Users/trevor/users6 zoo-animals; cd -; sleep 2; cd ~/lg/game-cli; npm run command -- cycle launch; sleep 2; npm run command cycle reflect; cd -'
+alias slash='cd ~/lg/game-cli; npm run command -- --token=$DEV_CLI_COMMAND_TOKEN'

@@ -158,7 +158,8 @@ jira-create() {
     | sed -n 's/ *"key": "\(.*\)",/https:\/\/jira.livingsocial.net\/browse\/\1/p'
 }
 
-PROMPT="%{$fg_bold[magenta]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%20<..<%~ %{$reset_color%}%{$fg[blue]%}%#%{$reset_color%} "
+PROMPT="%{$fg_bold[magenta]%}{%{$reset_color%} %{$fg[yellow]%}%~%{$reset_color%} %{$fg_bold[magenta]%}}%{$reset_color%}
+%{$fg[blue]%}%#%{$reset_color%} "
 
 bindkey -e # Use emacs mode
 
@@ -187,6 +188,10 @@ PATH=/usr/local/Cellar/mysql55/5.5.44/bin:$PATH
 
 # add bin from homedir
 PATH=$HOME/bin:$PATH
+PATH=$HOME/bin.private:$PATH
+
+# add LG bin
+PATH=$HOME/lg/bin:$PATH
 
 # LivingSocial
 DEALS_HIDE_AB_WARNING=1
@@ -219,8 +224,11 @@ fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
 export NVM_DIR="$HOME/.nvm"
 . "$(brew --prefix nvm)/nvm.sh"
 
 ### Iterm Shell Integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+ulimit -n 65536 65536

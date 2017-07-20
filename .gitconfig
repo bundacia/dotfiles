@@ -42,3 +42,5 @@
 	autosetupmerge = true
 [rebase]
 	autosquash = true
+[diftool "vimdiff"]
+	cmd = vimdiff
