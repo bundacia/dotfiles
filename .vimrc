@@ -49,11 +49,6 @@
 "         easily search for, substitute, and abbreviate multiple variants of a
 "         word
 "
-"     > vim-clojure-static - https://github.com/guns/vim-clojure-static.git
-"
-"     > fireplace.vim - https://github.com/tpope/vim-fireplace.git
-"         repl for clojure
-"
 "     > paredit.vim - https://github.com/vim-scripts/paredit.vim.git
 "         balanced parenthasis help for lisps
 "
@@ -266,13 +261,6 @@ function! Underscore()
 endfunction
 
 map <leader>u :call Underscore()<CR>
-
-""""""""""""""""""""""
-" => Clojure editing
-""""""""""""""""""""""
-autocmd FileType clojure nmap <silent> <leader>, :w<CR>:Require<CR>:Eval (run-tests *ns*)<CR>
-autocmd FileType clojure autocmd BufWritePre <buffer> :%s/\s\+$//e
-" let g:paredit_shortmaps = 1
 
 """"""""""""""""""""""
 " => Ruby editing
