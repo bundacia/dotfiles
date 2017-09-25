@@ -34,3 +34,15 @@
 [submodule ".vim/bundle/ctrlp.vim"]
 	path = .vim/bundle/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule ".vim/bundle/vim-polyglot"]
+	path = .vim/bundle/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot.git
+[submodule ".vim/bundle/utilsnips"]
+	path = .vim/bundle/utilsnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule ".vim/bundle/vim-snippets"]
+	path = .vim/bundle/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
+[submodule ".vim/bundle/tslime"]
+	path = .vim/bundle/tslime
+	url = https://github.com/jgdavey/tslime.vim.git

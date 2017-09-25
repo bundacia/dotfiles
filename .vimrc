@@ -16,16 +16,6 @@
 "       file browser.
 "           info -> :help nerd_tree.txt
 "
-"     > snipmate.vim - http://www.vim.org/scripts/script.php?script_id=2540
-"                   OR git://github.com/msanders/snipmate.vim.git
-"       Snippet expansion like in TextMate
-"           info -> :help snipMate
-"
-"       Installed snippets from https://github.com/scrooloose/snipmate-snippets:
-"         git clone git://github.com/scrooloose/snipmate-snippets.git
-"         cd snipmate-snippets
-"         rake deplo_local
-"
 "     > netrw.vim - http://www.vim.org/scripts/script.php?script_id=1075
 "       Open/Read/Write files over a network
 "           info -> :help netrw
@@ -64,6 +54,11 @@
 "
 "     > ctrl-p - https://github.com/ctrlpvim/ctrlp.vim
 "         Fuzzy file finder
+"
+"     > Utilsnips - https://github.com/SirVer/ultisnips.git
+"
+"     > snippets - https://github.com/honza/vim-snippets.git
+"        
 "
 " After Installing Plugins:
 "     try the folowwing to load the help pages:
@@ -113,10 +108,12 @@ if executable('ag')
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => snipmate
+" => Utilsnips
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:snips_author = 'Trevor Little'
-source ~/.vim/snippets/support_functions.vim
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsSnippetsDir="~/.vim_private_snippets/UltiSnips"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-markdown
@@ -153,9 +150,9 @@ set backspace=indent,eol,start  " allow backspacing over eevrything in insert mo
 set dictionary+=/usr/share/dict/words " set dictionary for word completion
 
 " ---- Tabs (whitespace) ---- "
-set softtabstop=4 "An indentation level every 4 columns"
+set softtabstop=2 "An indentation level every 4 columns"
 set expandtab     "Convert all tabs typed into spaces"
-set shiftwidth=4  "Indent/Outdent by 4 columns"
+set shiftwidth=2  "Indent/Outdent by 4 columns"
 set shiftround    "Always Indent/Outdent to the nearest tabstop"
 set smartindent   "smart, automatic indendation
 set autoindent
@@ -265,8 +262,6 @@ map <leader>u :call Underscore()<CR>
 """"""""""""""""""""""
 " => Ruby editing
 """"""""""""""""""""""
-" 2-space tabs for ruby files (and js)
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder,javascript set shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 " Swap strings and symbols
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>' xysw'
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>: ds'i:
@@ -276,12 +271,12 @@ autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <leader>h xf r
 " add jbuilder syntax highlighting
 au BufNewFile,BufRead *.jbuilder set ft=ruby
 " Run tests
-" autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>. :call RunTestCommand(line('.'))<CR>
-" autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>, :call RunTestCommand()<CR>
+" autocmd FileType elixir,ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>. :call RunTestCommand(line('.'))<CR>
+" autocmd FileType elixir,ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>, :call RunTestCommand()<CR>
 autocmd FileType javascript nmap <silent> <leader>. :call RunJSTestCommandInTmux(line('.'))<CR>
 autocmd FileType javascript nmap <silent> <leader>, :call RunJSTestCommandInTmux()<CR>
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>. :call RunTestCommandInTmux(line('.'))<CR>
-autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>, :call RunTestCommandInTmux()<CR>
+autocmd FileType elixir,ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>. :call RunTestCommandInTmux(line('.'))<CR>
+autocmd FileType elixir,ruby,eruby,yaml,haml,scss,cucumber,jbuilder nmap <silent> <leader>, :call RunTestCommandInTmux()<CR>
 " Strip trailing whitespace on save
 autocmd FileType ruby,eruby,yaml,haml,scss,cucumber,jbuilder,javascript autocmd BufWritePre <buffer> :%s/\s\+$//e
 
@@ -290,9 +285,11 @@ autocmd User Rails/app/assets/javascripts/*/*.js,Rails/app/assets/javascripts/*.
 autocmd User Rails/spec/javascripts/*/*.js,Rails/spec/javascripts/*.js let b:rails_alternate = substitute(substitute(rails#buffer().path(), 'spec/javascripts', 'app/assets/javascripts', ''), '_spec\.js', '.js', '')
 
 function! GetTestCommand(...)
-    let args = expand('%') . (a:0 == 1 ? ':'.line('.') : '')
+    let args = expand('%') . (a:1 == 1 ? ':'.line('.') : '')
     if expand('%:r') =~ '_spec$'
         return 'bundle exec rspec ' . args
+    elseif expand('%') =~ '_test\.exs$'
+        return 'mix test ' . args
     elseif expand('%') =~ '\.feature$'
         return 'bundle exec cucumber ' . args
     elseif expand('%') =~ '_test\.rb$'
@@ -316,11 +313,10 @@ function! RunTestCommand(...)
     elseif
         echoerr "No test command to run"
     end
-
 endfunction
 
 function! RunTestCommandInTmux(...)
-    let cmd = GetTestCommand()
+    let cmd = GetTestCommand(a:0)
 
     " if there's a command update the test command register (t)
     if cmd != '0'
@@ -333,7 +329,10 @@ function! RunTestCommandInTmux(...)
     elseif
         echoerr "No test command to run"
     end
+endfunction
 
+function! ClearTestCommand()
+    let @t = ""
 endfunction
 
 function! GetJSTestCommand(...)
@@ -361,7 +360,6 @@ function! RunJSTestCommandInTmux(...)
     end
 
 endfunction
-
 
 """"""""""""""""""""""
 " => RELOAD

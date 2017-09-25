@@ -190,20 +190,10 @@ PATH=/usr/local/Cellar/mysql55/5.5.44/bin:$PATH
 PATH=$HOME/bin:$PATH
 PATH=$HOME/bin.private:$PATH
 
-# add LG bin
-PATH=$HOME/lg/bin:$PATH
-
-# LivingSocial
-DEALS_HIDE_AB_WARNING=1
-
 unsetopt ALL_EXPORT
 
 # Node Setup
 export NODE_ENV=development
-
-# hub: https://hub.github.com/
-export GITHUB_HOST=code.livingsocial.net
-export GITHUB_USER=tlittle
 
 alias ls='ls -G'
 
@@ -219,9 +209,6 @@ if [[ -a /etc/zsh_command_not_found ]]; then
     source /etc/zsh_command_not_found
 fi
 
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
-
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
@@ -230,3 +217,6 @@ export NVM_DIR="$HOME/.nvm"
 
 ### Iterm Shell Integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+source /usr/local/opt/asdf/asdf.sh
+source /usr/local/etc/bash_completion.d/asdf.bash
