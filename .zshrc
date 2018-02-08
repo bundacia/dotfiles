@@ -158,6 +158,7 @@ jira-create() {
     | sed -n 's/ *"key": "\(.*\)",/https:\/\/jira.livingsocial.net\/browse\/\1/p'
 }
 
+
 PROMPT="%{$fg_bold[magenta]%}{%{$reset_color%} %{$fg[yellow]%}%~%{$reset_color%} %{$fg_bold[magenta]%}}%{$reset_color%}
 %{$fg[blue]%}%#%{$reset_color%} "
 
@@ -197,6 +198,7 @@ export NODE_ENV=development
 
 alias ls='ls -G'
 
+
 if [[ -a ~/.alias ]]; then
     source ~/.alias
 fi
@@ -212,11 +214,10 @@ fi
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-export NVM_DIR="$HOME/.nvm"
-. "$(brew --prefix nvm)/nvm.sh"
-
 ### Iterm Shell Integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-source /usr/local/opt/asdf/asdf.sh
-source /usr/local/etc/bash_completion.d/asdf.bash
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
+eval "$(rbenv init -)"

@@ -258,6 +258,13 @@ function! Underscore()
 endfunction
 
 map <leader>u :call Underscore()<CR>
+""""""""""""""""""""""
+" => elixir editing
+""""""""""""""""""""""
+" Swap `key: value` for `"key" => value` and back
+
+autocmd FileType elixir nmap <leader>H ysw"f:cw =>2F"
+autocmd FileType elixir nmap <leader>h ds"ea:ldf>bb
 
 """"""""""""""""""""""
 " => Ruby editing
