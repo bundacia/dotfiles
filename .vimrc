@@ -110,10 +110,10 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Utilsnips
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsSnippetsDir="~/.vim_private_snippets/UltiSnips"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsSnippetsDir="~/.vim_private_snippets/UltiSnips"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-markdown

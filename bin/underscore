@@ -2,4 +2,4 @@
 
 camel_case_word = ARGV[0] ? ARGV[0] : STDIN.read
 
-puts camel_case_word.gsub(/(\w)([A-Z])/, "\\1_\\2").downcase
+puts camel_case_word.gsub(/([A-Z]+)([A-Z](?!$))/, "\\1_\\2").gsub(/([a-z])([A-Z])/, "\\1_\\2").downcase
